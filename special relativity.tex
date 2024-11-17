@@ -1,0 +1,331 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, tikz, geometry, multicol}
+\geometry{margin=0.25in}
+\setlength{\columnsep}{1cm} % Adjust column separation if needed
+
+\begin{document}
+
+\begin{multicols}{2}
+
+\section*{Time Dilation in Special Relativity}
+
+\subsection*{Lorentz Factor}
+
+The Lorentz factor (\(\gamma\)) describes how time dilates for an object moving at velocity \(v\) relative to an observer:
+
+\[
+\gamma = \frac{1}{\sqrt{1 - \left( \dfrac{v}{c} \right)^2 }}
+\]
+
+where:
+- \( v \) = velocity of the moving object,
+- \( c \) = speed of light (\( c = 299{,}792{,}458 \, \text{m/s} \)).
+
+\subsection*{Time Dilation Formula}
+
+The relationship between time intervals measured in different frames:
+
+\[
+\Delta t = \gamma \Delta t'
+\]
+
+- \( \Delta t' \) = time interval measured in the \textbf{moving frame} (also known as \emph{proper time}),
+- \( \Delta t \) = time interval measured in the \textbf{stationary frame}.
+
+\subsection*{Deriving Time Difference}
+
+To find the time difference (\( \Delta \tau \)) between the two frames:
+
+\[
+\Delta \tau = \Delta t - \Delta t' = \gamma \Delta t' - \Delta t' = \Delta t' (\gamma - 1)
+\]
+
+\subsection*{Solving for Time in Moving Frame}
+
+Given a desired time difference (\( \Delta \tau \)):
+
+\[
+\Delta t' = \frac{\Delta \tau}{\gamma - 1}
+\]
+
+\subsection*{Calculations at Various Speeds}
+
+\subsubsection*{Case 1: \( v = 80\% \, c \)}
+
+\textbf{Calculate Lorentz Factor:}
+
+For \( v = 0.8c \):
+
+\[
+\gamma = \frac{1}{\sqrt{1 - (0.8)^2}} = \frac{1}{\sqrt{0.36}} = \frac{1}{0.6} \approx 1.6667
+\]
+
+\textbf{Find Time in Moving Frame for \(\Delta \tau = 60\, \text{s}\):}
+
+\[
+\Delta t' = \frac{60\, \text{s}}{1.6667 - 1} = \frac{60\, \text{s}}{0.6667} \approx 90\, \text{s}
+\]
+
+\textbf{Calculate Time in Stationary Frame:}
+
+\[
+\Delta t = \gamma \Delta t' = 1.6667 \times 90\, \text{s} = 150\, \text{s}
+\]
+
+\textbf{Verify Time Difference:}
+
+\[
+\Delta \tau = \Delta t - \Delta t' = 150\, \text{s} - 90\, \text{s} = 60\, \text{s}
+\]
+
+\subsubsection*{Case 2: \( v = 90\% \, c \)}
+
+\textbf{Calculate Lorentz Factor:}
+
+For \( v = 0.9c \):
+
+\[
+\gamma = \frac{1}{\sqrt{1 - (0.9)^2}} = \frac{1}{\sqrt{0.19}} \approx 2.2942
+\]
+
+\textbf{Find Time in Moving Frame for \(\Delta \tau = 60\, \text{s}\):}
+
+\[
+\Delta t' = \frac{60\, \text{s}}{2.2942 - 1} \approx 46.3615\, \text{s}
+\]
+
+\textbf{Calculate Time in Stationary Frame:}
+
+\[
+\Delta t = \gamma \Delta t' \approx 2.2942 \times 46.3615\, \text{s} \approx 106.3615\, \text{s}
+\]
+
+\textbf{Verify Time Difference:}
+
+\[
+\Delta \tau = \Delta t - \Delta t' = 106.3615\, \text{s} - 46.3615\, \text{s} = 60\, \text{s}
+\]
+
+\subsubsection*{Case 3: \( v = 99\% \, c \)}
+
+\textbf{Calculate Lorentz Factor:}
+
+For \( v = 0.99c \):
+
+\[
+\gamma = \frac{1}{\sqrt{1 - (0.99)^2}} \approx 7.0888
+\]
+
+\textbf{Find Time in Moving Frame for \(\Delta \tau = 60\, \text{s}\):}
+
+\[
+\Delta t' = \frac{60\, \text{s}}{7.0888 - 1} \approx 9.8581\, \text{s}
+\]
+
+\textbf{Calculate Time in Stationary Frame:}
+
+\[
+\Delta t = \gamma \Delta t' \approx 7.0888 \times 9.8581\, \text{s} \approx 69.8581\, \text{s}
+\]
+
+\textbf{Verify Time Difference:}
+
+\[
+\Delta \tau = \Delta t - \Delta t' = 69.8581\, \text{s} - 9.8581\, \text{s} = 60\, \text{s}
+\]
+
+\columnbreak
+
+\section*{Energy Requirements}
+
+\subsection*{Relativistic Kinetic Energy}
+
+The kinetic energy (\( KE \)) required to accelerate an object to a relativistic speed is:
+
+\[
+KE = (\gamma - 1) m c^2
+\]
+
+where:
+- \( m \) = rest mass of the object,
+- \( \gamma \) = Lorentz factor,
+- \( c \) = speed of light.
+
+\subsection*{Calculating Energy for the DeLorean}
+
+Assuming the DeLorean has a mass \( m = 1{,}230\, \text{kg} \) (approximate mass of a DeLorean car).
+
+\subsubsection*{Case 1: \( v = 80\% \, c \)}
+
+\textbf{Calculate Lorentz Factor:}
+
+Already calculated: \( \gamma \approx 1.6667 \)
+
+\textbf{Calculate Kinetic Energy:}
+
+\[
+KE = (\gamma - 1) m c^2 = (1.6667 - 1) \times 1{,}230\, \text{kg} \times (299{,}792{,}458\, \text{m/s})^2
+\]
+
+\[
+KE \approx 0.6667 \times 1{,}230\, \text{kg} \times (8.9875 \times 10^{16}\, \text{m}^2/\text{s}^2)
+\]
+
+\[
+KE \approx 0.6667 \times 1{,}230\, \text{kg} \times 8.9875 \times 10^{16}\, \text{J/kg}
+\]
+
+\[
+KE \approx 0.6667 \times 1.1065 \times 10^{20}\, \text{J} \approx 7.3765 \times 10^{19}\, \text{J}
+\]
+
+\textbf{Result:}
+
+Approximately \( 7.38 \times 10^{19} \) joules of energy are required.
+
+\subsubsection*{Case 2: \( v = 90\% \, c \)}
+
+\textbf{Calculate Lorentz Factor:}
+
+Already calculated: \( \gamma \approx 2.2942 \)
+
+\textbf{Calculate Kinetic Energy:}
+
+\[
+KE = (2.2942 - 1) \times 1{,}230\, \text{kg} \times c^2
+\]
+
+\[
+KE \approx 1.2942 \times 1{,}230\, \text{kg} \times 8.9875 \times 10^{16}\, \text{J/kg}
+\]
+
+\[
+KE \approx 1.2942 \times 1.1065 \times 10^{20}\, \text{J} \approx 1.4323 \times 10^{20}\, \text{J}
+\]
+
+\textbf{Result:}
+
+Approximately \( 1.43 \times 10^{20} \) joules of energy are required.
+
+\subsubsection*{Case 3: \( v = 99\% \, c \)}
+
+\textbf{Calculate Lorentz Factor:}
+
+Already calculated: \( \gamma \approx 7.0888 \)
+
+\textbf{Calculate Kinetic Energy:}
+
+\[
+KE = (7.0888 - 1) \times 1{,}230\, \text{kg} \times c^2
+\]
+
+\[
+KE \approx 6.0888 \times 1{,}230\, \text{kg} \times 8.9875 \times 10^{16}\, \text{J/kg}
+\]
+
+\[
+KE \approx 6.0888 \times 1.1065 \times 10^{20}\, \text{J} \approx 6.7389 \times 10^{20}\, \text{J}
+\]
+
+\textbf{Result:}
+
+Approximately \( 6.74 \times 10^{20} \) joules of energy are required.
+
+\subsection*{Understanding the Energy Scale}
+
+For perspective:
+
+- The total annual energy consumption of the entire world is about \( 5 \times 10^{20} \) joules.
+- Accelerating the DeLorean to \( 99\% \, c \) requires more energy than the world's annual energy consumption.
+
+\subsection*{Instructions to Calculate Energy Required}
+
+To calculate the energy required to accelerate an object to a given velocity:
+
+\begin{enumerate}
+    \item \textbf{Calculate Lorentz Factor} (\( \gamma \)):
+    \[
+    \gamma = \frac{1}{\sqrt{1 - \left( \dfrac{v}{c} \right)^2 }}
+    \]
+    \item \textbf{Compute Kinetic Energy} (\( KE \)):
+    \[
+    KE = (\gamma - 1) m c^2
+    \]
+    \item \textbf{Plug in the Mass and Speed of Light}:
+    \begin{itemize}
+        \item \( m \) = mass of the object (in kg),
+        \item \( c \) = \( 299{,}792{,}458\, \text{m/s} \).
+    \end{itemize}
+    \item \textbf{Calculate and Interpret the Result}:
+    \begin{itemize}
+        \item The result is in joules (J).
+        \item Compare with known energy scales for perspective.
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{Example Calculation}
+
+Given:
+- \( v = 95\% \, c \)
+- \( m = 1{,}230\, \text{kg} \)
+
+\textbf{Step 1: Calculate Lorentz Factor}
+
+\[
+\gamma = \frac{1}{\sqrt{1 - (0.95)^2}} \approx 3.2026
+\]
+
+\textbf{Step 2: Compute Kinetic Energy}
+
+\[
+KE = (3.2026 - 1) \times 1{,}230\, \text{kg} \times c^2
+\]
+
+\[
+KE \approx 2.2026 \times 1{,}230\, \text{kg} \times 8.9875 \times 10^{16}\, \text{J/kg}
+\]
+
+\[
+KE \approx 2.2026 \times 1.1065 \times 10^{20}\, \text{J} \approx 2.4361 \times 10^{20}\, \text{J}
+\]
+
+\textbf{Result:}
+
+Approximately \( 2.44 \times 10^{20} \) joules of energy are required.
+
+\section*{Key Equations Summary}
+
+\subsection*{Lorentz Factor}
+
+\[
+\gamma = \frac{1}{\sqrt{1 - \left( \dfrac{v}{c} \right)^2 }}
+\]
+
+\subsection*{Time Dilation}
+
+\[
+\Delta t = \gamma \Delta t'
+\]
+
+\subsection*{Time Difference}
+
+\[
+\Delta \tau = \Delta t - \Delta t' = \Delta t' (\gamma - 1)
+\]
+
+\subsection*{Solving for Time in Moving Frame}
+
+\[
+\Delta t' = \frac{\Delta \tau}{\gamma - 1}
+\]
+
+\subsection*{Relativistic Kinetic Energy}
+
+\[
+KE = (\gamma - 1) m c^2
+\]
+
+\end{multicols}
+
+\end{document}

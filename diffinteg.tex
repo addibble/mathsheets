@@ -1,0 +1,246 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, tikz, geometry, multicol}
+\geometry{margin=0.25in}
+
+\begin{document}
+
+\begin{multicols}{2}
+
+\section*{Differentiation}
+
+\subsection*{Definition}
+
+The derivative of a function \( f(x) \) at a point \( x \) is defined as:
+\[
+f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}
+\]
+
+\subsection*{Power Rule}
+\[
+f(x) = x^n \Rightarrow f'(x) = nx^{n-1}
+\]
+Example:
+\[
+f(x) = x^3 \Rightarrow f'(x) = 3x^2
+\]
+
+\subsection*{Constant Rule}
+\[
+f(x) = c \Rightarrow f'(x) = 0
+\]
+Example:
+\[
+f(x) = 2 \Rightarrow f'(x) = 0
+\]
+
+\subsection*{Basic Derivatives}
+\[
+\frac{d}{dx} e^x = e^x
+\]
+\[
+\frac{d}{dx} x^n = n x^{n-1}
+\]
+\[
+\frac{d}{dx} \ln x = \frac{1}{x} \quad \text{for } x > 0
+\]
+
+\subsection*{Derivative of Exponential Functions}
+For \( f(x) = a^x \), where \( a > 0 \) and \( a \neq 1 \):
+\[
+\frac{d}{dx} a^x = a^x \ln a
+\]
+Example:
+\[
+\frac{d}{dx} 2^x = 2^x \ln 2
+\]
+
+\subsection*{Derivative of Logarithmic Functions}
+For \( f(x) = \log_a x \), where \( a > 0 \) and \( a \neq 1 \):
+\[
+\frac{d}{dx} \log_a x = \frac{1}{x \ln a}
+\]
+Example:
+\[
+\frac{d}{dx} \log_2 x = \frac{1}{x \ln 2}
+\]
+
+\subsection*{Derivatives of Trigonometric Functions}
+\[
+\frac{d}{dx} \sin x = \cos x
+\]
+\[
+\frac{d}{dx} \cos x = -\sin x
+\]
+\[
+\frac{d}{dx} \tan x = \sec^2 x
+\]
+\[
+\frac{d}{dx} \cot x = -\csc^2 x
+\]
+\[
+\frac{d}{dx} \sec x = \sec x \tan x
+\]
+\[
+\frac{d}{dx} \csc x = -\csc x \cot x
+\]
+Example:
+\[
+\frac{d}{dx} \tan x = \sec^2 x
+\]
+\[
+\frac{d}{dx} \cot x = -\csc^2 x
+\]
+
+\subsection*{Product Rule}
+If \( f(x) = u(x) \cdot v(x) \):
+\[
+f'(x) = u'v + uv'
+\]
+
+\subsection*{Quotient Rule}
+If \( f(x) = \dfrac{u(x)}{v(x)} \):
+\[
+f'(x) = \frac{u'v - uv'}{v^2}
+\]
+
+\subsection*{Chain Rule}
+If \( f(x) = h(g(x)) \), then:
+\[
+f'(x) = h'(g(x)) \cdot g'(x)
+\]
+Example:
+\[
+f(x) = (2x^3 + x)^4
+\]
+Then:
+\[
+f'(x) = 4(2x^3 + x)^3 \cdot (6x^2 + 1)
+\]
+
+\columnbreak
+
+\section*{Integration}
+\subsection*{Definition of Integration}
+
+The definite integral of a function \( f(x) \) over the interval \([a, b]\) is defined as the limit of a Riemann sum:
+
+\[
+\int_{a}^{b} f(x) \, dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i^*) \Delta x
+\]
+
+where:
+- \( \Delta x = \dfrac{b - a}{n} \) is the width of each subinterval,
+- \( x_i^* \) is a sample point in the \( i \)-th subinterval \([x_{i-1}, x_i]\).
+
+The integral represents the accumulation of the quantity \( f(x) \) over the interval \([a, b]\).
+
+Alternatively, the indefinite integral (antiderivative) of a function \( f(x) \) is a function \( F(x) \) such that:
+
+\[
+\int f(x) \, dx = F(x) + C
+\]
+
+where:
+- \( F'(x) = f(x) \),
+- \( C \) is the constant of integration.
+
+\subsection*{Power Rule}
+\[
+\int x^n \, dx = \frac{x^{n+1}}{n+1} + C \quad \text{(for } n \neq -1\text{)}
+\]
+
+\subsection*{Constant Rule}
+\[
+\int c \, dx = cx + C
+\]
+Example:
+\[
+\int 5x^2 \, dx = 5 \int x^2 \, dx = 5 \cdot \frac{x^3}{3} = \frac{5x^3}{3} + C
+\]
+
+\subsection*{Sum Rule}
+\[
+\int [f(x) + g(x)] \, dx = \int f(x) \, dx + \int g(x) \, dx
+\]
+
+\subsection*{Basic Integrals}
+\[
+\int e^x \, dx = e^x + C
+\]
+\[
+\int a^x \, dx = \frac{a^x}{\ln a} + C \quad \text{(for } a > 0,\, a \neq 1\text{)}
+\]
+Example:
+\[
+\int 2^x \, dx = \frac{2^x}{\ln 2} + C
+\]
+\[
+\int \frac{1}{x} \, dx = \ln |x| + C
+\]
+\[
+\int \ln x \, dx = x \ln x - x + C
+\]
+\[
+\int \log_a x \, dx = x \log_a x - \frac{x}{\ln a} + C
+\]
+Example:
+\[
+\int \log_2 x \, dx = x \log_2 x - \frac{x}{\ln 2} + C
+\]
+
+\subsection*{Integrals of Trigonometric Functions}
+\[
+\int \sin x \, dx = -\cos x + C
+\]
+\[
+\int \cos x \, dx = \sin x + C
+\]
+\[
+\int \tan x \, dx = -\ln |\cos x| + C
+\]
+\[
+\int \cot x \, dx = \ln |\sin x| + C
+\]
+\[
+\int \sec x \, dx = \ln |\sec x + \tan x| + C
+\]
+\[
+\int \csc x \, dx = -\ln |\csc x + \cot x| + C
+\]
+\[
+\int \sec^2 x \, dx = \tan x + C
+\]
+\[
+\int \csc^2 x \, dx = -\cot x + C
+\]
+\[
+\int \sec x \tan x \, dx = \sec x + C
+\]
+\[
+\int \csc x \cot x \, dx = -\csc x + C
+\]
+
+\subsection*{Example Calculations}
+1. \[
+\int x^2 \, dx = \frac{x^3}{3} + C
+\]
+2. \[
+\int 3^x \, dx = \frac{3^x}{\ln 3} + C
+\]
+3. \[
+\int \ln x \, dx = x \ln x - x + C
+\]
+4. \[
+\int \frac{1}{x \ln a} \, dx = \log_a x + C
+\]
+5. \[
+\int \sec^2 x \, dx = \tan x + C
+\]
+6. \[
+\int \tan x \, dx = -\ln |\cos x| + C
+\]
+
+\end{multicols}
+
+\end{document}
