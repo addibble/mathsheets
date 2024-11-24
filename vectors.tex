@@ -1,0 +1,247 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc} % Handle UTF-8 encoding
+\usepackage{amsmath, amssymb, tikz, geometry, multicol}
+\usetikzlibrary{calc}
+\geometry{margin=0.15in}
+\tolerance=1000
+
+\begin{document}
+
+% Start of the document with two columns
+\begin{multicols}{2}
+
+\section*{Vector Notation and Representation}
+
+\subsection*{Unit Vector Notation}
+
+Vectors can be represented in different notations:
+
+- \textbf{Angle Bracket Notation}:
+
+  A vector \(\vec{V}\) in two dimensions can be written as:
+
+  \[
+  \vec{V} = \langle V_x, V_y \rangle
+  \]
+
+- \textbf{Column Vector Notation}:
+
+  \[
+  \vec{V} = \begin{bmatrix} V_x \\ V_y \end{bmatrix}
+  \]
+
+- \textbf{Cartesian Coordinates}:
+
+  Using the unit vectors \(\hat{i}\) and \(\hat{j}\):
+
+  \[
+  \vec{V} = V_x \hat{i} + V_y \hat{j}
+  \]
+
+Where:
+
+- \( V_x \) is the component of the vector along the \( x \)-axis.
+- \( V_y \) is the component of the vector along the \( y \)-axis.
+- \( \hat{i} \) and \( \hat{j} \) are unit vectors in the \( x \) and \( y \) directions, respectively.
+
+\subsection*{Zero-Length and Parallel Vectors}
+
+- \textbf{Zero-Length Vector (Zero Vector)}:
+
+  A vector with zero magnitude and no specific direction.
+
+  \[
+  \vec{0} = \langle 0, 0 \rangle
+  \]
+
+  \textbf{Properties:}
+
+  - Adding the zero vector to any vector leaves the original vector unchanged.
+
+    \[
+    \vec{V} + \vec{0} = \vec{V}
+    \]
+
+- \textbf{Parallel Vectors}:
+
+  Two vectors are parallel if they have the same or opposite directions.
+
+  \textbf{Conditions for Parallelism:}
+
+  - Vectors \(\vec{A}\) and \(\vec{B}\) are parallel if:
+
+    \[
+    \vec{A} = k \vec{B}
+    \]
+
+    where \( k \) is a scalar constant.
+
+    - If \( k > 0 \), vectors are in the same direction.
+    - If \( k < 0 \), vectors are in opposite directions.
+
+  - \textbf{Component Proportionality:}
+
+    \[
+    \frac{A_x}{B_x} = \frac{A_y}{B_y}
+    \]
+
+    If the ratios of the corresponding components are equal (and finite), the vectors are parallel.
+
+\subsection*{Position Vectors and Vector Difference}
+
+If \( A \) and \( B \) are points in the Cartesian plane with position vectors \( \vec{a} \) and \( \vec{b} \) respectively, then the vector from point \( A \) to point \( B \) is given by:
+
+\[
+\vec{AB} = \vec{b} - \vec{a}
+\]
+
+This represents the displacement from point \( A \) to point \( B \).
+
+\textbf{Example:}
+
+Let point \( A \) have coordinates \( (2, 3) \) and point \( B \) have coordinates \( (5, 7) \).
+
+- Write the position vectors:
+
+  \[
+  \vec{a} = \begin{bmatrix} 2 \\ 3 \end{bmatrix}, \quad \vec{b} = \begin{bmatrix} 5 \\ 7 \end{bmatrix}
+  \]
+
+- Compute \( \vec{AB} \):
+
+  \[
+  \vec{AB} = \vec{b} - \vec{a} = \begin{bmatrix} 5 \\ 7 \end{bmatrix} - \begin{bmatrix} 2 \\ 3 \end{bmatrix} = \begin{bmatrix} 5 - 2 \\ 7 - 3 \end{bmatrix} = \begin{bmatrix} 3 \\ 4 \end{bmatrix}
+  \]
+
+- The vector from \( A \) to \( B \) is \( \vec{AB} = \begin{bmatrix} 3 \\ 4 \end{bmatrix} \).
+
+- The magnitude of \( \vec{AB} \) is:
+
+  \[
+  |\vec{AB}| = \sqrt{(3)^2 + (4)^2} = \sqrt{9 + 16} = \sqrt{25} = 5
+  \]
+
+- The direction (angle) of \( \vec{AB} \) with respect to the horizontal axis is:
+
+  \[
+  \theta = \arctan\left( \dfrac{4}{3} \right) \approx 53.13^\circ
+  \]
+
+\section*{Vector Decomposition and Addition}
+
+\subsection*{Decomposing Vectors into Components}
+
+Any vector \(\vec{V}\) can be decomposed into its horizontal and vertical components using trigonometric functions.
+
+Given a vector of magnitude \( V \) at an angle \( \theta \) with respect to the horizontal axis:
+
+\[
+\begin{aligned}
+V_x &= V \cos \theta \\
+V_y &= V \sin \theta
+\end{aligned}
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+    % Draw axes
+    \draw[->] (-0.5,0) -- (5,0) node[right] {$x$};
+    \draw[->] (0,-0.5) -- (0,3) node[above] {$y$};
+    % Draw vector V
+    \draw[->, thick] (0,0) -- (4,2) node[midway, above] {$\vec{V}$};
+    % Components
+    \draw[dashed] (4,0) -- (4,2);
+    \draw[dashed] (0,2) -- (4,2);
+    % Labels
+    \draw[->] (0,0) -- (4,0) node[midway, below] {$V_x$};
+    \draw[->] (0,0) -- (0,2) node[midway, left] {$V_y$};
+    % Angle
+    \draw (0.7,0) arc (0:26.57:0.7cm);
+    \node at (1,0.3) {$\theta$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{Example:} A vector has a magnitude of \( V = 5 \) units and makes an angle of \( \theta = 30^\circ \) with the horizontal axis. Find its components.
+
+\[
+\begin{aligned}
+V_x &= V \cos \theta = 5 \cos 30^\circ = 5 \times \dfrac{\sqrt{3}}{2} = \dfrac{5\sqrt{3}}{2} \approx 4.33 \\
+V_y &= V \sin \theta = 5 \sin 30^\circ = 5 \times \dfrac{1}{2} = \dfrac{5}{2} = 2.5
+\end{aligned}
+\]
+
+\subsection*{Adding Vectors Using Components}
+
+To add two vectors, decompose each vector into its components, add the corresponding components, and then recombine the resultant components to find the resultant vector.
+
+Given two vectors \(\vec{A}\) and \(\vec{B}\):
+
+\[
+\begin{aligned}
+A_x &= A \cos \alpha \\
+A_y &= A \sin \alpha \\
+B_x &= B \cos \beta \\
+B_y &= B \sin \beta
+\end{aligned}
+\]
+
+The resultant vector \(\vec{R} = \vec{A} + \vec{B}\) has components:
+
+\[
+\begin{aligned}
+R_x &= A_x + B_x \\
+R_y &= A_y + B_y
+\end{aligned}
+\]
+
+The magnitude and direction of \(\vec{R}\) are:
+
+\[
+\begin{aligned}
+R &= \sqrt{R_x^2 + R_y^2} \\
+\theta_R &= \arctan\left( \dfrac{R_y}{R_x} \right)
+\end{aligned}
+\]
+
+\textbf{Example:} Add vector \(\vec{A}\) of magnitude \( A = 10 \) units at \( \alpha = 45^\circ \) and vector \(\vec{B}\) of magnitude \( B = 8 \) units at \( \beta = 120^\circ \).
+
+\textit{Step 1: Decompose vectors into components.}
+
+\[
+\begin{aligned}
+A_x &= 10 \cos 45^\circ = 10 \times \dfrac{\sqrt{2}}{2} = 5\sqrt{2} \approx 7.07 \\
+A_y &= 10 \sin 45^\circ = 10 \times \dfrac{\sqrt{2}}{2} = 5\sqrt{2} \approx 7.07 \\
+B_x &= 8 \cos 120^\circ = 8 \times \left( -\dfrac{1}{2} \right) = -4 \\
+B_y &= 8 \sin 120^\circ = 8 \times \dfrac{\sqrt{3}}{2} = 4\sqrt{3} \approx 6.93
+\end{aligned}
+\]
+
+\textit{Step 2: Add components.}
+
+\[
+\begin{aligned}
+R_x &= A_x + B_x = 7.07 + (-4) = 3.07 \\
+R_y &= A_y + B_y = 7.07 + 6.93 = 14
+\end{aligned}
+\]
+
+\textit{Step 3: Calculate resultant magnitude and direction.}
+
+\[
+\begin{aligned}
+R &= \sqrt{(R_x)^2 + (R_y)^2} = \sqrt{(3.07)^2 + (14)^2} \approx \sqrt{9.42 + 196} \approx \sqrt{205.42} \approx 14.33 \\
+\theta_R &= \arctan\left( \dfrac{14}{3.07} \right) \approx 77.5^\circ
+\end{aligned}
+\]
+
+So, the resultant vector has a magnitude of approximately \( 14.33 \) units and makes an angle of \( 77.5^\circ \) with the horizontal axis.
+
+\subsection*{Summary}
+
+- Decompose vectors into their \( x \) and \( y \) components using \( \cos \) and \( \sin \) functions.
+- Add the corresponding components to find the resultant components.
+- Calculate the magnitude and direction of the resultant vector from its components.
+
+\end{multicols}
+
+\end{document}
