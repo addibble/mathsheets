@@ -84,12 +84,25 @@ Example:
 \[
 \frac{d}{dx} \csc x = -\csc x \cot x
 \]
-Example:
+
+\subsection*{Derivatives of Inverse Trigonometric Functions}
 \[
-\frac{d}{dx} \tan x = \sec^2 x
+\frac{d}{dx} \arcsin x = \frac{1}{\sqrt{1 - x^2}}
 \]
 \[
-\frac{d}{dx} \cot x = -\csc^2 x
+\frac{d}{dx} \arccos x = -\frac{1}{\sqrt{1 - x^2}}
+\]
+\[
+\frac{d}{dx} \arctan x = \frac{1}{1 + x^2}
+\]
+\[
+\frac{d}{dx} \operatorname{arccot} x = -\frac{1}{1 + x^2}
+\]
+\[
+\frac{d}{dx} \operatorname{arcsec} x = \frac{1}{|x|\sqrt{x^2 - 1}}
+\]
+\[
+\frac{d}{dx} \operatorname{arccsc} x = -\frac{1}{|x|\sqrt{x^2 - 1}}
 \]
 
 \subsection*{Product Rule}
@@ -117,6 +130,57 @@ Then:
 \[
 f'(x) = 4(2x^3 + x)^3 \cdot (6x^2 + 1)
 \]
+
+\subsection*{Implicit Differentiation}
+
+Implicit differentiation is used to find the derivative of a function when it is not explicitly solved for \(y\) in terms of \(x\). For example, consider the equation:
+\[
+x^2 + y^2 = 1
+\]
+To differentiate implicitly:
+\begin{enumerate}
+    \item Differentiate both sides of the equation with respect to \(x\), treating \(y\) as a function of \(x\) (\(y = y(x)\)).
+    \item Apply the chain rule to terms involving \(y\).
+\end{enumerate}
+\textbf{Steps:}
+\begin{itemize}
+    \item Differentiate \(x^2 + y^2 = 1\):
+    \[
+    \frac{d}{dx}(x^2) + \frac{d}{dx}(y^2) = \frac{d}{dx}(1)
+    \]
+    \item Simplify:
+    \[
+    2x + 2y \frac{dy}{dx} = 0
+    \]
+    \item Solve for \(\frac{dy}{dx}\):
+    \[
+    \frac{dy}{dx} = -\frac{x}{y}
+    \]
+\end{itemize}
+
+\textbf{Example:}
+Find \(\frac{dy}{dx}\) if \(x^2 + xy + y^2 = 7\).
+\begin{itemize}
+    \item Differentiate both sides:
+    \[
+    \frac{d}{dx}(x^2) + \frac{d}{dx}(xy) + \frac{d}{dx}(y^2) = \frac{d}{dx}(7)
+    \]
+    \item Apply product rule and chain rule:
+    \[
+    2x + \left(\frac{d}{dx}(x \cdot y)\right) + 2y \frac{dy}{dx} = 0
+    \]
+    \[
+    2x + \left(y + x \frac{dy}{dx}\right) + 2y \frac{dy}{dx} = 0
+    \]
+    \item Combine terms:
+    \[
+    2x + y + x \frac{dy}{dx} + 2y \frac{dy}{dx} = 0
+    \]
+    \item Solve for \(\frac{dy}{dx}\):
+    \[
+    \frac{dy}{dx} = -\frac{2x + y}{x + 2y}
+    \]
+\end{itemize}
 
 \columnbreak
 
@@ -240,7 +304,58 @@ Example:
 6. \[
 \int \tan x \, dx = -\ln |\cos x| + C
 \]
+\newpage
 
+\subsection*{Substitution Method}
+
+The substitution method is used to simplify an integral by making a substitution to reduce it to a standard form. It is particularly useful when the integrand contains a composite function.
+
+\subsubsection*{Steps for Substitution}
+\begin{enumerate}
+    \item Identify a substitution: Let \( u = g(x) \), where \( g(x) \) is part of the integrand. Compute \( \frac{du}{dx} = g'(x) \) or equivalently \( du = g'(x) \, dx \).
+    \item Rewrite the integral in terms of \( u \): Substitute \( g(x) \) with \( u \) and \( dx \) with \( du / g'(x) \).
+    \item Perform the integration: Solve the integral in terms of \( u \).
+    \item Back-substitute: Replace \( u \) with \( g(x) \) to express the answer in terms of the original variable \( x \).
+\end{enumerate}
+
+\subsubsection*{General Formula}
+If \( \int (ax + b)^n \, dx \), then:
+\[
+\int (ax + b)^n \, dx = \frac{1}{a(n+1)} (ax + b)^{n+1} + C, \quad n \neq -1.
+\]
+
+\subsubsection*{Example 1}
+Evaluate \( \int x e^{x^2} \, dx \).
+
+\textbf{Solution:}
+\begin{itemize}
+    \item Let \( u = x^2 \), so \( \frac{du}{dx} = 2x \) or \( du = 2x \, dx \).
+    \item Rewrite the integral: \[ \int x e^{x^2} \, dx = \int e^u \cdot \frac{du}{2}. \]
+    \item Simplify and integrate: \[ \int e^u \cdot \frac{1}{2} \, du = \frac{1}{2} \int e^u \, du = \frac{1}{2} e^u + C. \]
+    \item Back-substitute: \[ \frac{1}{2} e^u + C = \frac{1}{2} e^{x^2} + C. \]
+\end{itemize}
+
+\subsubsection*{Example 2}
+Evaluate \( \int \frac{\ln x}{x} \, dx \).
+
+\textbf{Solution:}
+\begin{itemize}
+    \item Let \( u = \ln x \), so \( \frac{du}{dx} = \frac{1}{x} \) or \( du = \frac{1}{x} \, dx \).
+    \item Rewrite the integral: \[ \int \frac{\ln x}{x} \, dx = \int u \, du. \]
+    \item Integrate: \[ \int u \, du = \frac{u^2}{2} + C. \]
+    \item Back-substitute: \[ \frac{u^2}{2} + C = \frac{(\ln x)^2}{2} + C. \]
+\end{itemize}
+
+\subsubsection*{Example 3}
+Evaluate \( \int \cos(3x) \, dx \).
+
+\textbf{Solution:}
+\begin{itemize}
+    \item Let \( u = 3x \), so \( \frac{du}{dx} = 3 \) or \( du = 3 \, dx \), hence \( dx = \frac{du}{3} \).
+    \item Rewrite the integral: \[ \int \cos(3x) \, dx = \int \cos(u) \cdot \frac{du}{3}. \]
+    \item Simplify and integrate: \[ \int \cos(u) \cdot \frac{1}{3} \, du = \frac{1}{3} \int \cos(u) \, du = \frac{1}{3} \sin(u) + C. \]
+    \item Back-substitute: \[ \frac{1}{3} \sin(u) + C = \frac{1}{3} \sin(3x) + C. \]
+\end{itemize}
 \end{multicols}
 
 \end{document}

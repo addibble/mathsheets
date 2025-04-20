@@ -1,0 +1,116 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+
+\title{Building Logic Gates and Adders in Scratch}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+Inspired by the classic educational game \textit{Rocky's Boots}, this tutorial shows how to build logic gates using Scratch sprites and variables as wires. Once you've created the basic gates, you'll be ready to combine them into more complicated digital machines, like adders that can perform math!
+
+\section*{Step-by-Step: Building an AND Gate}
+
+\subsection*{Sprites and Wires}
+
+To start, create three sprites:
+\begin{itemize}
+    \item \textbf{Switch A}: toggles between ON (1) and OFF (0). Controls variable \texttt{A}.
+    \item \textbf{Switch B}: toggles between ON (1) and OFF (0). Controls variable \texttt{B}.
+    \item \textbf{Light Bulb (Output)}: indicates the output of the AND gate.
+\end{itemize}
+
+Then create three wire sprites (thin rectangles) to visualize the signals:
+\begin{itemize}
+    \item \textbf{Wire A}, \textbf{Wire B}, and \textbf{Wire AND Out}
+    \item Each wire sprite has two costumes: \textbf{gray} (off, signal=0) and \textbf{red} (on, signal=1).
+\end{itemize}
+
+\subsection*{Code for the Switch Sprites}
+
+Each switch toggles its variable:
+\begin{verbatim}
+when sprite clicked
+    set [A v] to (1 - (A))
+    switch costume to (if A=1 then "on" else "off")
+\end{verbatim}
+Repeat for switch B (variable \texttt{B}).
+
+\subsection*{Code for Wire Sprites}
+Each wire follows its own variable:
+\begin{verbatim}
+when green flag clicked
+forever
+    if <(variable)=1> then
+        switch costume to "red"
+    else
+        switch costume to "gray"
+\end{verbatim}
+Replace \texttt{(variable)} with \texttt{A}, \texttt{B}, or \texttt{AND\_OUT}.
+
+\subsection*{Code for the AND Gate}
+The AND gate sprite calculates output:
+\begin{verbatim}
+when green flag clicked
+forever
+    if <(A)=1 and (B)=1> then
+        set [AND_OUT v] to 1
+    else
+        set [AND_OUT v] to 0
+\end{verbatim}
+
+The bulb sprite shows the \texttt{AND\_OUT} result.
+
+\section*{Creating Other Gates}
+Create OR, NOT, XOR, NAND, and NOR gates by changing the condition in the gate sprite:
+\begin{itemize}
+    \item OR: \texttt{if (A=1) or (B=1)}
+    \item NOT: \texttt{if (A=0)} (single input)
+    \item XOR: \texttt{if ((A=1) and (B=0)) or ((A=0) and (B=1))}
+\end{itemize}
+
+\section*{The Half-Adder}
+
+A half-adder adds two binary digits (bits) to produce a \textbf{sum} and a \textbf{carry}.
+
+\begin{itemize}
+    \item \textbf{Sum}: result of XOR gate (1 when exactly one input is on)
+    \item \textbf{Carry}: result of AND gate (1 when both inputs are on)
+\end{itemize}
+
+Create variables and wires for \texttt{SUM} and \texttt{CARRY}. Then create a sum LED and carry LED to show outputs.
+
+\section*{Scaling Up: Full Adder and Byte Adder}
+
+A \textbf{full adder} adds three bits: two bits plus a carry-in from the previous bit addition.
+
+\subsection*{How to Build a Full Adder}
+
+Combine two half-adders and one OR gate:
+\begin{enumerate}
+    \item Inputs: bits \texttt{A}, \texttt{B}, and \texttt{Carry-In}
+    \item Half-adder \#1 adds \texttt{A} and \texttt{B}, outputs \texttt{S1} (sum) and \texttt{C1} (carry).
+    \item Half-adder \#2 adds \texttt{S1} and \texttt{Carry-In}, outputs final \texttt{SUM} and another carry \texttt{C2}.
+    \item OR gate combines carries \texttt{C1} and \texttt{C2}, outputs final \texttt{Carry-Out}.
+\end{enumerate}
+
+\subsection*{Byte Adder: 8 Bits}
+
+To add two bytes (8 bits each):
+\begin{itemize}
+    \item Connect 8 full adders in a chain.
+    \item Each bit addition outputs a carry-in for the next bit.
+\end{itemize}
+
+This is exactly how real computers add numbers!
+
+\section*{Conclusion and Next Steps}
+You now know how logic gates combine to build digital circuits like adders. Explore creating bigger machines, build calculators, counters, or even your own mini-computer in Scratch!
+
+\end{document}
+

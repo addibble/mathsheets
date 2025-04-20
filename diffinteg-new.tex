@@ -1,0 +1,219 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, tikz, geometry, multicol}
+\geometry{margin=0.25in}
+
+\begin{document}
+
+%=== First Spread: Compound Rules & Substitution ===
+\begin{multicols}{2}
+
+%— Left Column: Differentiation —
+\section*{Differentiation}
+
+\subsection*{Definition}
+The derivative of $f(x)$ at $x$ is
+\[
+f'(x) = \lim_{h\to 0}\frac{f(x+h)-f(x)}{h}.
+\]
+
+\subsection*{Product Rule}
+If $f(x)=u(x)\,v(x)$, then
+\[
+f'(x)=u'(x)\,v(x)+u(x)\,v'(x).
+\]
+
+\subsection*{Quotient Rule}
+If $f(x)=\dfrac{u(x)}{v(x)}$, then
+\[
+f'(x)=\frac{u'(x)\,v(x)-u(x)\,v'(x)}{[v(x)]^2}.
+\]
+
+\subsection*{Chain Rule}
+If $f(x)=h(g(x))$, then
+\[
+f'(x)=h'(g(x))\;\cdot\;g'(x).
+\]
+
+\subsection*{Implicit Differentiation}
+Given $F(x,y)=0$, differentiate both sides w.r.t. $x$, treating $y=y(x)$:
+\[
+F_x + F_y\,y'=0
+\quad\Longrightarrow\quad
+y'=-\frac{F_x}{F_y}.
+\]
+\emph{Example:} From $x^2+y^2=1$, $2x+2y\,y'=0\Rightarrow y'=-\tfrac{x}{y}.$
+
+\subsection*{Differentiation by Substitution}
+To differentiate $f(x)=H(u(x))$, set $u=u(x)$:
+\[
+\frac{df}{dx}=H'(u)\,\frac{du}{dx}.
+\]
+\emph{Example:} If $f(x)=(2x^3+x)^4$, then $u=2x^3+x$, $du= (6x^2+1) dx$, so
+\[
+f' = 4u^3 \cdot (6x^2+1) = 4(2x^3 + x)^3(6x^2+1).
+\]
+
+\columnbreak
+
+%— Right Column: Integration —
+\section*{Integration}
+
+\subsection*{Definition}
+\textbf{Definite integral:}
+\[
+\int_a^b f(x)\,dx=\lim_{n\to\infty}\sum_{i=1}^n f(x_i^*)\,\Delta x,
+\quad \Delta x=\frac{b-a}{n}.
+\]
+
+\textbf{Indefinite integral:}
+\[
+\int f(x)\,dx=F(x)+C,
+\quad F'(x)=f(x).
+\]
+
+\subsection*{Linearity Rules}
+\[
+\int\bigl[f(x)+g(x)\bigr]\,dx=\int f(x)\,dx+\int g(x)\,dx,
+\]
+\[
+\int c\,f(x)\,dx=c\int f(x)\,dx.
+\]
+
+\subsection*{Implicit Integration}
+For $y'=\frac{g(x)}{h(y)}$, separate:
+\[
+h(y)\,dy=g(x)\,dx\quad\Longrightarrow\quad
+\int h(y)\,dy=\int g(x)\,dx + C.
+\]
+
+\subsection*{Integration by Substitution}
+Let $u=g(x)$ so $du=g'(x)\,dx$. Then
+\[
+\int f(g(x))\,g'(x)\,dx=\int f(u)\,du.
+\]
+\emph{Example:} $\int x e^{x^2}dx$: with $u=x^2$, $du=2x dx$, gives $\tfrac12\int e^u du=\tfrac12 e^u + C$.
+
+\subsection*{Definite Integration by Substitution}
+To compute $\int_a^b f(g(x))g'(x)\,dx$, set $u=g(x)$ and update limits accordingly:
+\[
+\int_{x=a}^{x=b} f(g(x))g'(x)\,dx = \int_{u=g(a)}^{u=g(b)} f(u)\,du.
+\]
+
+% Table for limit conversion
+\begin{center}
+\begin{tabular}{c|cc}
+Variable & Lower limit & Upper limit \\
+\hline
+$x$ & $a$ & $b$ \\
+$u=g(x)$ & $g(a)$ & $g(b)$
+\end{tabular}
+\end{center}
+
+\emph{Example:}
+Compute
+\[
+\int_{0}^{\frac{\pi}{4}} \sec^2 x\tan x\,dx.
+\]
+Set $u=\tan x$, so $du=\sec^2 x\,dx$.  Limits:
+\[
+x=0\implies u=\tan0=0,
+\quad x=\tfrac{\pi}{4}\implies u=\tan\tfrac{\pi}{4}=1.
+\]
+Table of limits:
+\begin{center}
+\begin{tabular}{c|cc}
+Variable & Lower limit & Upper limit \\
+\hline
+$x$ & $0$ & $\tfrac{\pi}{4}$ \\
+$u$ & $0$ & $1$
+\end{tabular}
+\end{center}
+Thus,
+\[
+\int_{0}^{\frac{\pi}{4}} \sec^2 x\tan x\,dx
+=\int_{0}^{1} u\,du
+=\Bigl[\tfrac{u^2}{2}\Bigr]_{0}^{1}
+=\tfrac{1}{2}.
+\]
+
+\end{multicols}
+
+\newpage
+
+%=== Final Page: Paired Formulas ===
+\begin{multicols}{2}
+
+\section*{Derivative \& Integral Pairs}
+
+\begin{align*}
+\frac{d}{dx}x^n &= n\,x^{n-1}
+&\quad
+\int x^n\,dx &= \frac{x^{n+1}}{n+1}+C
+\\[6pt]
+\frac{d}{dx}e^x &= e^x
+&
+\int e^x\,dx &= e^x + C
+\\[6pt]
+\frac{d}{dx}a^x &= a^x\ln a
+&
+\int a^x\,dx &= \frac{a^x}{\ln a}+C
+\\[6pt]
+\frac{d}{dx}\ln x &= \tfrac1x
+&
+\int \tfrac{1}{x}\,dx &= \ln|x|+C
+\\[6pt]
+%% Trigonometric Functions %%
+\frac{d}{dx}\sin x &= \cos x
+&
+\int \sin x\,dx &= -\cos x + C
+\\[6pt]
+\frac{d}{dx}\cos x &= -\sin x
+&
+\int \cos x\,dx &= \sin x + C
+\\[6pt]
+\frac{d}{dx}\tan x &= \sec^2 x
+&
+\int \tan x\,dx &= -\ln\lvert\cos x\rvert + C
+\\[6pt]
+\frac{d}{dx}\cot x &= -\csc^2 x
+&
+\int \cot x\,dx &= \ln\lvert\sin x\rvert + C
+\\[6pt]
+\frac{d}{dx}\sec x &= \sec x\tan x
+&
+\int \sec x\,dx &= \ln\lvert\sec x+\tan x\rvert + C
+\\[6pt]
+\frac{d}{dx}\csc x &= -\csc x\cot x
+&
+\int \csc x\,dx &= -\ln\lvert\csc x+\cot x\rvert + C
+\\[10pt]
+%% Inverse Trigonometric Functions %%
+\frac{d}{dx}\arcsin x &= \frac{1}{\sqrt{1-x^2}}
+&
+\int \frac{1}{\sqrt{1-x^2}}\,dx &= \arcsin x + C
+\\[6pt]
+\frac{d}{dx}\arccos x &= -\frac{1}{\sqrt{1-x^2}}
+&
+\int -\frac{1}{\sqrt{1-x^2}}\,dx &= \arccos x + C
+\\[6pt]
+\frac{d}{dx}\arctan x &= \frac{1}{1+x^2}
+&
+\int \frac{1}{1+x^2}\,dx &= \arctan x + C
+\\[6pt]
+\frac{d}{dx}\operatorname{arccot} x &= -\frac{1}{1+x^2}
+&
+\int -\frac{1}{1+x^2}\,dx &= \operatorname{arccot} x + C
+\\[6pt]
+\frac{d}{dx}\operatorname{arcsec} x &= \frac{1}{|x|\sqrt{x^2-1}}
+&
+\int \frac{1}{|x|\sqrt{x^2-1}}\,dx &= \operatorname{arcsec} x + C
+\\[6pt]
+\frac{d}{dx}\operatorname{arccsc} x &= -\frac{1}{|x|\sqrt{x^2-1}}
+&
+\int -\frac{1}{|x|\sqrt{x^2-1}}\,dx &= \operatorname{arccsc} x + C
+\end{align*}
+
+\end{multicols}
+
+\end{document}

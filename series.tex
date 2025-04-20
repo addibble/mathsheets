@@ -1,0 +1,124 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc} % Handle UTF-8 encoding
+\usepackage{amsmath, amssymb, tikz, geometry, multicol}
+\usetikzlibrary{calc}
+\geometry{margin=0.15in}
+\tolerance=1000
+
+\begin{document}
+
+% Start of the document with two columns
+\begin{multicols}{2}
+
+% Left Column: Summations and Series
+\section*{Summations and Series}
+
+\subsection*{Summation Notation}
+The summation symbol \(\Sigma\) represents the sum of a sequence:
+\[
+\sum_{i=m}^n a_i = a_m + a_{m+1} + \cdots + a_n
+\]
+\textbf{Example:} Compute \( \sum_{i=1}^4 i \):
+\[
+\sum_{i=1}^4 i = 1 + 2 + 3 + 4 = 10
+\]
+
+\section*{Arithmetic Series}
+An arithmetic series is the sum of terms in an arithmetic sequence, with a constant difference \(d\).
+
+\textbf{General Form:}
+\[
+S_n = \frac{n}{2}(a + l) = \frac{n}{2}(2a + (n-1)d)
+\]
+where:
+\begin{itemize}
+    \item \(a\): First term
+    \item \(l\): Last term
+    \item \(d\): Common difference
+    \item \(n\): Number of terms
+\end{itemize}
+
+\textbf{Example:} Sum of first 10 terms of \(2, 5, 8, \dots\):
+\begin{align*}
+    a &= 2, d = 3, n = 10 \\
+    S_n &= \frac{10}{2}(4 + 27) = 155
+\end{align*}
+
+\section*{Geometric Series}
+A geometric series is the sum of terms in a geometric sequence, with a constant ratio \(r\).
+
+\textbf{Finite Sum:}
+\[
+S_n = a \frac{1-r^n}{1-r}, \quad r \neq 1
+\]
+
+\textbf{Infinite Sum:} If \(|r| < 1\):
+\[
+S = \frac{a}{1-r}
+\]
+
+\textbf{General term:}
+\[ a_n = a r^{n-1} \]
+
+\textbf{Example:} Sum of first 5 terms of \(3, 6, 12, \dots\):
+\begin{align*}
+    a &= 3, r = 2, n = 5 \\
+    S_n &= 3\frac{1 - 32}{1 - 2} = 93
+\end{align*}
+
+\section*{Partial Sums of Infinite Series}
+The partial sum \(S_N\) is the sum of the first \(N\) terms:
+\[
+S_N = \sum_{n=1}^{N} a_n
+\]
+For geometric series:
+\[
+S_N = a \frac{1 - r^N}{1 - r}, |r|<1
+\]
+
+As \(N \to \infty\), the sum approaches:
+\[
+S = \frac{a}{1-r}
+\]
+
+\textbf{Example:} Sum of first 4 terms of \(1, \frac{1}{2}, \frac{1}{4}, \dots\):
+\begin{align*}
+    a &= 1, r = \frac{1}{2}, N = 4 \\
+    S_N &= \frac{1-(\frac{1}{2})^4}{1-\frac{1}{2}} = \frac{15}{8}
+\end{align*}
+
+% Right Column: Other Formulas
+\section*{Conversions and Other Formulas}
+
+\subsection*{Converting Recursive to Explicit Form}
+\textbf{Arithmetic:}
+\[ a_n = a + (n-1)d \]
+
+\textbf{Geometric:}
+\[ a_n = a r^{n-1} \]
+
+\section*{Product Series Notation}
+The product notation \(\Pi\) represents the product of terms:
+\[
+\prod_{i=m}^{n} a_i = a_m \times a_{m+1} \times \dots \times a_n
+\]
+
+\textbf{Example:} Compute \(\prod_{i=1}^{4} i\):
+\[
+\prod_{i=1}^{4} i = 1 \times 2 \times 3 \times 4 = 24
+\]
+
+\subsection*{Infinite Product}
+An infinite product converges if the limit exists:
+\[
+\prod_{i=1}^{\infty} a_i = \lim_{n\to\infty}\prod_{i=1}^{n}a_i
+\]
+
+\textbf{Example:} Evaluate the infinite product \(\prod_{n=1}^{\infty} \frac{1}{2^n}\):
+\[
+\prod_{n=1}^{\infty}\frac{1}{2} = \lim_{n\to\infty} \frac{1}{2^n} = 0
+\]
+
+\end{multicols}
+
+\end{document}

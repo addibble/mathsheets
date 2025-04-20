@@ -242,6 +242,101 @@ So, the resultant vector has a magnitude of approximately \( 14.33 \) units and 
 - Add the corresponding components to find the resultant components.
 - Calculate the magnitude and direction of the resultant vector from its components.
 
+
+\section*{Matrices}
+
+\subsection*{Matrix Multiplication Algorithm}
+To multiply two matrices \( A \) and \( B \):
+
+- Let \( A \) be an \( m \times n \) matrix and \( B \) an \( n \times p \) matrix.
+- The product \( C = AB \) is an \( m \times p \) matrix where:
+
+\[
+C_{ij} = \sum_{k=1}^n A_{ik} B_{kj}
+\]
+
+\textbf{Example:}
+\[
+A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}, \quad B = \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix}
+\]
+\[
+C = \begin{bmatrix} (1)(5) + (2)(7) & (1)(6) + (2)(8) \\ (3)(5) + (4)(7) & (3)(6) + (4)(8) \end{bmatrix} = \begin{bmatrix} 19 & 22 \\ 43 & 50 \end{bmatrix}
+\]
+
+\subsection*{Matrices and Vectors}
+- A vector \( \vec{v} \) can be represented as a column matrix:
+\[
+\vec{v} = \begin{bmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{bmatrix}
+\]
+
+- To transform \( \vec{v} \) using a matrix \( A \):
+\[
+\vec{v}' = A \vec{v}
+\]
+\textbf{Example:}
+\[
+A = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}, \quad \vec{v} = \begin{bmatrix} 2 \\ 3 \end{bmatrix}
+\]
+\[
+\vec{v}' = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} \begin{bmatrix} 2 \\ 3 \end{bmatrix} = \begin{bmatrix} 2 \\ -3 \end{bmatrix}
+\]
+
+\subsection*{Determinant of a Matrix}
+For a square matrix \( A \):
+
+- \( 2 \times 2 \):
+\[
+\text{det}(A) = \begin{vmatrix} a & b \\ c & d \end{vmatrix} = ad - bc
+\]
+
+- \( 3 \times 3 \):
+\[
+\text{det}(A) = \begin{vmatrix} a & b & c \\ d & e & f \\ g & h & i \end{vmatrix} = a(ei - fh) - b(di - fg) + c(dh - eg)
+\]
+
+\subsection*{Matrix Minor}
+The minor \( M_{ij} \) of an element \( A_{ij} \) is the determinant of the matrix obtained by removing the \( i \)-th row and \( j \)-th column of \( A \).
+
+\textbf{Example:}
+For \( A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix} \), the minor of \( A_{11} \):
+\[
+M_{11} = \begin{vmatrix} 5 & 6 \\ 8 & 9 \end{vmatrix} = (5)(9) - (6)(8) = -3
+\]
+
+\subsection*{Identity Matrix}
+The identity matrix \( I_n \) is an \( n \times n \) matrix with ones on the diagonal and zeros elsewhere:
+\[
+I_2 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}, \quad I_3 = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}
+\]
+
+\textbf{Properties:}
+\[
+AI = IA = A \quad \text{(for any \( n \times n \) matrix \( A \))}
+\]
+
+\subsection*{Augmented Matrices}
+An augmented matrix represents a system of linear equations:
+\[
+A \vec{x} = \vec{b}
+\]
+The augmented matrix is:
+\[
+[A|\vec{b}] = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} & b_1 \\
+                           a_{21} & a_{22} & \cdots & a_{2n} & b_2 \\
+                           \vdots & \vdots & \ddots & \vdots & \vdots \\
+                           a_{m1} & a_{m2} & \cdots & a_{mn} & b_m \end{bmatrix}
+\]
+
+\textbf{Example:}
+\[
+\begin{aligned}
+\text{System:} \quad & 2x + 3y = 5 \\
+                         & 4x -  y = 6 \\
+\text{Augmented Matrix:} \quad & \begin{bmatrix} 2 & 3 & | & 5 \\
+                                                         4 & -1 & | & 6 \end{bmatrix}
+\end{aligned}
+\]
+
 \end{multicols}
 
 \end{document}
