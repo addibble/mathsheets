@@ -1,0 +1,169 @@
+% Miller--Rabin Primality Test -- Comprehensive Workbook
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+
+\title{Miller--Rabin Primality Test: Step-by-Step Workbook}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+% ----------------------------------------------------
+\section{1. Understanding Congruence (Modular Arithmetic)}
+\subsection{1.1 What Does ``$a \equiv b \pmod m$'' Mean?}
+We say ``$a$ is congruent to $b$ modulo $m$'' when $a$ and $b$ leave the same remainder upon division by $m$.
+\begin{itemize}
+  \item Divide $a$ by $m$: remainder $r_a$.
+  \item Divide $b$ by $m$: remainder $r_b$.
+  \item If $r_a = r_b$, then $a \equiv b \pmod m$.
+\end{itemize}
+Equivalently, $m$ divides the difference: \quad $m \mid (a - b)$.
+
+\textbf{Example:} $14 \equiv 2 \pmod{4}$ since both leave remainder 2 when divided by 4.
+
+\subsection{1.2 Why Addition and Multiplication Work}
+If $a \equiv b\pmod m$ and $c \equiv d\pmod m$, then:
+\begin{itemize}
+  \item $a - b = m k$ and $c - d = m \ell$ for some integers $k,\ell$.
+  \item Summing: $(a + c) - (b + d) = m(k + \ell)$, so $a + c \equiv b + d\pmod m$.
+  \item Multiplying: $ac - bd = (a - b)c + b(c - d) = mc k + m b \ell = m(ck + b\ell)$, so $ac \equiv bd\pmod m$.
+\end{itemize}
+
+\subsection{1.3 Exercises}
+\begin{enumerate}[label=Exercise 1.\arabic*]
+  \item Find the remainder when $123$ is divided by $7$, and when $200$ is divided by $7$. Show that $123 \equiv 200\pmod7$.\rule{4cm}{0.4pt}
+  \item Show that if $a\equiv b\pmod m$, then for any positive integer $k$, $a^k \equiv b^k\pmod m$.\rule{4cm}{0.4pt}
+\end{enumerate}
+
+% ----------------------------------------------------
+\section{2. Computing Large Powers by Hand}
+\subsection{2.1 Breaking Exponents into Powers of Two}
+Any exponent $k$ can be written in binary, e.g.
+\[
+  45 = 32 + 8 + 4 + 1 \quad(45_{10}=101101_2).
+\]
+Then
+\[
+  a^{45} = a^{32}\times a^{8}\times a^{4}\times a^{1}.
+\]
+We compute each $a^{2^i}$ by successive squaring:
+\[
+  a^2=(a^1)^2,\quad a^4=(a^2)^2,\quad a^8=(a^4)^2,\dots
+\]
+
+\subsection{2.2 Worked Example}
+Compute $3^{17}\bmod23$:
+\begin{enumerate}[label=\arabic*.]
+  \item Write $17=16+1$ (binary $10001_2$).
+  \item Compute:
+    \[
+      3^1=3,\quad
+      3^2=9,\quad
+      3^4=9^2=81\equiv12,\quad
+      3^8=12^2=144\equiv6,\quad
+      3^{16}=6^2=36\equiv13.
+    \]
+  \item Multiply: $3^{17}=3^{16}\times3^1\equiv13\times3=39\equiv16\pmod{23}$.  
+\end{enumerate}
+
+\subsection{2.3 Exercises}
+\begin{enumerate}[label=Exercise 2.\arabic*]
+  \item Compute $7^{45}\bmod{1001}$ by breaking 45 into powers of two and doing successive squaring and multiplication.\rule{6cm}{0.4pt}
+  \item Show all steps for $13^{37}\bmod{101}$.\rule{6cm}{0.4pt}
+\end{enumerate}
+
+% ----------------------------------------------------
+\section{3. Fast (Binary) Exponentiation Algorithm}
+\subsection{3.1 Why It Is Faster}
+Multiplying $a$ by itself $k-1$ times takes $k-1$ multiplications.  Binary exponentiation uses about $2\log_2 k$ multiplications instead of $k$.
+
+\subsection{3.2 Algorithm (Pseudocode)}
+\begin{verbatim}
+function binExp(a, k, m):
+    result = 1
+    base   = a mod m
+    while k > 0:
+        if (k mod 2 == 1):
+            result = (result * base) mod m
+        base = (base * base) mod m
+        k = floor(k / 2)
+    return result
+\end{verbatim}
+
+\subsection{3.3 Example Table}
+Compute $5^{27}\bmod97$ by tracking $(k,\;\text{base},\;\text{result})$:
+\begin{tabular}{|c|c|c|}
+\hline
+$k$ & base & result\\
+\hline
+27 & 5 & 1\\
+13 & 25 & 5\\
+6  & $25^2 \bmod 97 = \dots$ & $\dots$\\
+\hline
+\end{tabular}
+
+\subsection{3.4 Exercises}
+\begin{enumerate}[label=Exercise 3.\arabic*]
+  \item Finish the table to compute $5^{27}\bmod97$.\rule{6cm}{0.4pt}
+  \item Compute $7^{2025}\bmod2027$ by binary exponentiation.\rule{6cm}{0.4pt}
+\end{enumerate}
+
+% ----------------------------------------------------
+\section{4. The Miller--Rabin Primality Test}
+\subsection{4.1 Setup}
+Let $n>2$ be odd.  Write $n-1=2^s d$ where $d$ is odd (pull out factors of two).
+
+\subsection{4.2 One Test Round}
+Pick base $a$ with $1<a<n-1$ and do:
+\begin{enumerate}[label=\arabic*.]
+  \item Compute $x=a^d\bmod n$ via binExp.
+  \item If $x=1$ or $x=n-1$, return \textbf{PASS}.
+  \item Repeat $s-1$ times:
+    \begin{itemize}
+      \item $x = x^2\bmod n$.
+      \item If $x=n-1$, return \textbf{PASS}.
+    \end{itemize}
+  \item Otherwise return \textbf{COMPOSITE}.
+\end{enumerate}
+
+\subsection{4.3 Guided Example}
+Test $n=561$, $a=2$:
+\begin{enumerate}[label=\arabic*.]
+  \item $561-1=560=2^4\times35$, so $s=4$, $d=35$.
+  \item Compute $2^{35}\bmod561$ (use binExp).
+  \item Check if $x=1$ or $560$; otherwise square up to 3 times checking for $560$.  
+  \item Conclude \textbf{COMPOSITE}.  
+\end{enumerate}
+
+\subsection{4.4 Exercises}
+\begin{enumerate}[label=Exercise 4.\arabic*]
+  \item Carry out one round of Miller--Rabin on $n=561$, $a=2$. Fill in each $x$ value.\rule{6cm}{0.4pt}
+  \item Test $n=1105$, $a=2$.\rule{6cm}{0.4pt}
+\end{enumerate}
+
+% ----------------------------------------------------
+\section{5. Why Miller--Rabin Works (Theory)}
+\subsection{5.1 Square Roots of 1 Modulo $n$}
+A number $y$ with $y^2\equiv1\pmod n$ is a square root of unity.  For prime $p$, only $y=\pm1$.  For composite $n$, there can be more.
+
+\subsection{5.2 Witnesses and Non-Witnesses}
+A base $a$ is a \emph{witness} if the test returns \textbf{COMPOSITE}.  Otherwise a \emph{non-witness}.
+
+\subsection{5.3 Witness Property Theorem}
+\textbf{Theorem.} If $n$ is odd composite, at least $3/4$ of $a\in\{2,\dots,n-2\}$ are witnesses.  
+
+\subsection{5.4 Proof Sketch}
+Non-witnesses force all intermediate $x$ values to be $\pm1$.  Counting roots of unity shows there are at most $2^{s+1}$ possibilities, which is $\le(n-3)/4$ for composite $n$.
+
+\subsection{5.5 Exercises}
+\begin{enumerate}[label=Exercise 5.\arabic*]
+  \item Explain why for prime $p$, there are exactly two square roots of unity mod $p$.\rule{6cm}{0.4pt}
+  \item Argue why composite $n$ has at most four such roots if $n$ is not a prime power.\rule{6cm}{0.4pt}
+\end{enumerate}
+
+\end{document}
+
+

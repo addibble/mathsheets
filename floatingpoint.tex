@@ -1,0 +1,177 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+
+\title{Understanding IEEE 754 Floating Point}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{1. Introduction}
+Floating-point numbers let computers represent very large, very small, and fractional values using a fixed number of bits. IEEE 754 is the standard that defines how these bits are divided into \emph{sign}, \emph{exponent}, and \emph{mantissa}. In this lesson you'll learn:
+\begin{itemize}
+  \item How the IEEE 754 format is structured and why the exponent uses a \emph{bias}.
+  \item Step-by-step conversion from decimal to IEEE 754 binary (16-bit) and back.
+  \item Two detailed examples worked through each substep.
+  \item Eight practice problems to reinforce your understanding.
+\end{itemize}
+
+\section*{2. IEEE 754 Format Overview}
+An IEEE~754 floating-point number is laid out as:
+\[
+\underbrace{\text{Sign}}_{1\text{ bit}}
+\;|\;
+\underbrace{\text{Exponent}}_{E\text{ bits}}
+\;|\;
+\underbrace{\text{Mantissa}}_{M\text{ bits}}
+\]
+\begin{itemize}
+  \item \textbf{Sign bit (S)}: 0 for positive, 1 for negative.
+  \item \textbf{Exponent}: stored with a \emph{bias} so that both positive and negative exponents become nonnegative integers.
+  \item \textbf{Mantissa} (also called \emph{fraction}): the significant digits, stored without bias, with an \emph{implicit leading 1} in normalized numbers.
+\end{itemize}
+
+For common precisions:
+\begin{center}
+\begin{tabular}{l|c|c|c}
+Precision & Total bits & Exponent bits ($E$) & Mantissa bits ($M$) \\
+\hline
+Half (16-bit)   & 16 & 5 & 10 \\
+Single (32-bit) & 32 & 8 & 23 \\
+Double (64-bit) & 64 & 11 & 52 \\
+\end{tabular}
+\end{center}
+
+\subsection*{2.1 Why a Bias?}
+Exponents can be positive or negative. Instead of using a separate sign bit for the exponent, IEEE~754 adds a \textbf{bias} to make the stored exponent always nonnegative:
+\[
+e_{\text{stored}} = e_{\text{actual}} + (2^{E-1}-1)
+\]
+For $E=5$, the bias is $2^{4}-1=15$. For example:
+\[
+\begin{array}{c|c}
+e_{\text{actual}} & e_{\text{stored}} \\
+\hline
+-15 & 0 \\
+-14 & 1 \\
+\vdots & \vdots \\
+0   & 15 \\
+1   & 16 \\
+\vdots & \vdots \\
+15  & 30 \\
+16  & 31 \\
+\end{array}
+\]
+Storing exponents as unsigned integers simplifies hardware comparison and sorting.
+
+\section*{3. Converting Decimal to IEEE~754 (16-bit)}
+We will convert $6.75_{10}$ step by step.
+
+\subsection*{Step 1: Sign Bit}
+Since $6.75$ is positive, $S=0$.
+
+\subsection*{Step 2: Convert to Binary}
+Split into integer part (6) and fractional part ($0.75$).
+
+\subsubsection*{2.1 Integer Part (repeated division by 2)}
+\begin{align*}
+6 \div 2 &= 3 \quad\text{remainder }0 \\
+3 \div 2 &= 1 \quad\text{remainder }1 \\
+1 \div 2 &= 0 \quad\text{remainder }1
+\end{align*}
+Reading the remainders \textbf{bottom to top} gives $6_{10} = 110_2$.
+
+\subsubsection*{2.2 Fractional Part (repeated multiplication by 2)}
+\begin{align*}
+0.75 \times 2 &= 1.50 \quad\text{write 1, remainder }0.50 \\
+0.50 \times 2 &= 1.00 \quad\text{write 1, remainder }0.00
+\end{align*}
+So $0.75_{10} = .11_2$. Combine: $6.75_{10} = 110.11_2$.
+
+\subsection*{Step 3: Normalize}
+Move the binary point so the form is $1.xxxxx \times 2^e$:
+\[
+110.11_2 = 1.1011_2 \times 2^{2}
+\]
+We moved the point left $2$ places, so $e_{\text{actual}} = 2$.
+
+\subsection*{Step 4: Biased Exponent}
+Bias is $15$, so
+\[
+e_{\text{stored}} = e_{\text{actual}} + 15 = 2 + 15 = 17 = 10001_2
+\]
+
+\subsection*{Step 5: Mantissa}
+Drop the leading 1, take the next 10 bits of $1.1011$ (pad with zeros if needed): \texttt{1011000000}.
+
+\subsection*{Step 6: Assemble}
+So the IEEE 754 16-bit representation is:
+\[
+0\ |\ 10001\ |\ 1011000000
+\]
+
+\subsection*{Example: Convert $-2.625$}
+
+\begin{enumerate}
+  \item $S=1$ (negative).
+  \item $2.625 = 10.101_2$:
+    \begin{itemize}
+      \item $2_{10} = 10_2$
+      \item $0.625 \times 2 = 1.25$ (write 1, remainder 0.25)\\
+      $0.25 \times 2 = 0.5$ (write 0, remainder 0.5)\\
+      $0.5 \times 2 = 1.0$ (write 1, remainder 0.0)\\
+      So $0.625_{10} = .101_2$.
+    \end{itemize}
+  \item Normalize: $10.101_2 = 1.0101_2 \times 2^{1}$
+  \item Biased exponent: $e_{\text{stored}} = 1 + 15 = 16 = 10000_2$
+  \item Mantissa: drop the leading 1, next 10 bits: \texttt{0101000000}
+  \item Final: $1\ |\ 10000\ |\ 0101000000$
+\end{enumerate}
+
+\section*{4. Converting IEEE~754 Back to Decimal}
+Given $(S, e_{\text{stored}}, \text{mantissa bits})$:
+\begin{align*}
+\text{Sign} &= (-1)^S \\
+e &= e_{\text{stored}} - \text{Bias} \\
+M &= 1 + \sum_{i=1}^{10} \text{bit}_i \cdot 2^{-i} \\
+\text{Value} &= \text{Sign} \times M \times 2^e
+\end{align*}
+
+\subsection*{Example: $0\ |\ 10001\ |\ 1011000000$}
+\begin{enumerate}
+  \item $S=0$, so positive.
+  \item $e_{\text{stored}} = 17$, so $e = 17 - 15 = 2$.
+  \item Mantissa $= 1 + 2^{-1} + 0 \cdot 2^{-2} + 1 \cdot 2^{-3} + 1 \cdot 2^{-4} = 1 + 0.5 + 0 + 0.125 + 0.0625 = 1.6875$
+  \item Value $= 1.6875 \times 2^2 = 6.75$
+\end{enumerate}
+
+\subsection*{Example: $1\ |\ 10000\ |\ 0101000000$}
+\begin{enumerate}
+  \item $S=1$, so negative.
+  \item $e_{\text{stored}} = 16$, so $e = 16 - 15 = 1$.
+  \item Mantissa $= 1 + 0 \cdot 2^{-1} + 1 \cdot 2^{-2} + 0 \cdot 2^{-3} + 1 \cdot 2^{-4} = 1 + 0 + 0.25 + 0 + 0.0625 = 1.3125$
+  \item Value $= -1.3125 \times 2^1 = -2.625$
+\end{enumerate}
+
+\section*{5. Practice Problems}
+Convert with all steps:
+\begin{enumerate}
+  \item Convert $3.125$ to 16-bit IEEE 754 and back.
+  \item Convert $-0.15625$ to 16-bit IEEE 754 and back.
+  \item Convert $12.5$ to 16-bit IEEE 754.
+  \item Given $0\ |\ 01110\ |\ 0010000000$, convert to decimal.
+  \item Convert $-7.75$ to 16-bit IEEE 754.
+  \item Convert $0.1$ to 16-bit IEEE 754 (approximate).
+  \item Convert $15.875$ to 16-bit IEEE 754.
+  \item Explain why $1/10$ is infinite in binary.
+\end{enumerate}
+
+\end{document}

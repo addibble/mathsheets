@@ -416,7 +416,7 @@ For a positive integer \(n\):
 \[
 n! = n \times (n-1) \times (n-2) \times \cdots \times 2 \times 1
 \]
-By definition, \(0! = 1\}.
+By definition, \(0! = 1\)
 
 \subsection*{Permutations}
 The number of ways to arrange \(k\) distinct objects out of \(n\) distinct objects (order matters):
@@ -441,6 +441,40 @@ Common notation:
 
 \[
 P(5,2) = \frac{5!}{(5-2)!} = \frac{5!}{3!} = \frac{120}{6} = 20
+\]
+
+\subsection*{Gamma Function}
+For a complex number \(z\) with \(\Re(z)>0\):
+\[
+\Gamma(z) \;=\; \int_{0}^{\infty} t^{z-1} e^{-t}\,\mathrm{d}t
+\]
+It satisfies the functional equation (recurrence relation):
+\[
+\Gamma(z+1) \;=\; z\,\Gamma(z)
+\]
+In particular, for a positive integer \(n\):
+\[
+\Gamma(n+1) \;=\; n!
+\]
+A notable special value is
+\[
+\Gamma\!\bigl(\tfrac12\bigr) \;=\; \sqrt{\pi}
+\]
+The reflection formula is given by
+\[
+\Gamma(z)\,\Gamma(1 - z) \;=\; \frac{\pi}{\sin(\pi z)}
+\]
+\paragraph{Recursive computation for half-integers}
+For any integer \(m\ge1\), one can compute
+\[
+\Gamma\!\bigl(m+\tfrac12\bigr)
+\;=\;\Bigl(m - \tfrac12\Bigr)\,\Gamma\!\bigl(m - \tfrac12\bigr),
+\]
+with the base case \(\Gamma\!\bigl(\tfrac12\bigr)=\sqrt{\pi}\).  
+Hence
+\[
+\Gamma\!\bigl(m+\tfrac12\bigr)
+\;=\;\prod_{k=1}^{m}\Bigl(k-\tfrac12\Bigr)\,\sqrt{\pi}.
 \]
 
 \end{multicols}

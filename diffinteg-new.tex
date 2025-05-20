@@ -62,29 +62,29 @@ f' = 4u^3 \cdot (6x^2+1) = 4(2x^3 + x)^3(6x^2+1).
 \subsection*{Definition}
 \textbf{Definite integral:}
 \[
-\int_a^b f(x)\,dx=\lim_{n\to\infty}\sum_{i=1}^n f(x_i^*)\,\Delta x,
+\int_a^b f(x)dx=\lim_{n\to\infty}\sum_{i=1}^n f(x_i^*)\,\Delta x,
 \quad \Delta x=\frac{b-a}{n}.
 \]
 
 \textbf{Indefinite integral:}
 \[
-\int f(x)\,dx=F(x)+C,
+\int f(x)dx=F(x)+C,
 \quad F'(x)=f(x).
 \]
 
 \subsection*{Linearity Rules}
 \[
-\int\bigl[f(x)+g(x)\bigr]\,dx=\int f(x)\,dx+\int g(x)\,dx,
+\int\bigl[f(x)+g(x)\bigr]dx=\int f(x)dx+\int g(x)dx,
 \]
 \[
-\int c\,f(x)\,dx=c\int f(x)\,dx.
+\int c\,f(x)dx=c\int f(x)dx.
 \]
 
 \subsection*{Implicit Integration}
 For $y'=\frac{g(x)}{h(y)}$, separate:
 \[
-h(y)\,dy=g(x)\,dx\quad\Longrightarrow\quad
-\int h(y)\,dy=\int g(x)\,dx + C.
+h(y)\,dy=g(x)dx\quad\Longrightarrow\quad
+\int h(y)\,dy=\int g(x)dx + C.
 \]
 
 \subsection*{Integration by Substitution}
@@ -137,83 +137,191 @@ Thus,
 =\tfrac{1}{2}.
 \]
 
+\subsection*{Integration by Parts}
+Based on the product rule: $(uv)' = u'v + uv'$, we get the formula:
+\[
+\int u\,dv = uv - \int v\,du.
+\]
+Choose $u$ and $dv$ from the integrand so that $du$ and $v$ are easier to compute.
+
+\emph{Example:} $\int x e^x\,dx$: let $u = x$, $dv = e^x\,dx$.
+Then $du = dx$, $v = e^x$, so:
+\[
+\int x e^x\,dx = x e^x - \int e^x\,dx = x e^x - e^x + C.
+\]
+
+\subsection*{Definite Integration by Parts}
+Apply the same rule with limits:
+\[
+\int_a^b u\,dv = \left[uv\right]_a^b - \int_a^b v\,du.
+\]
+
+\emph{Example:} Compute $\int_0^1 x \ln(x+1)\,dx$.
+
+Let $u = \ln(x+1)$, so $du = \frac{1}{x+1}\,dx$;  
+let $dv = x\,dx$, so $v = \frac{x^2}{2}$. Then:
+\[
+\int_0^1 x\ln(x+1)\,dx
+= \left[\frac{x^2}{2} \ln(x+1)\right]_0^1 - \int_0^1 \frac{x^2}{2(x+1)}\,dx.
+\]
+
+\end{multicols}
+
+\newpage
+%=== Page 1: Non‑Trigonometric Pairs ===
+\newpage
+%=== Page 1: Non-Trigonometric Pairs ===
+\begin{multicols}{2}
+\section*{Derivative \& Integral Pairs}
+
+\begin{align*}
+\\[10pt]
+%— Constant \& Linear-Power Substitution —
+\frac{d}{dx}C &= 0
+&\int 0\,dx &= C
+\\[6pt]
+\frac{d}{dx}(a x + b)^n &= n\,a\,(a x + b)^{n-1}
+&\int (a x + b)^n\,dx &= \frac{(a x + b)^{n+1}}{a(n+1)} + C
+\\[10pt]
+%— Generic Exponential Substitution —
+\frac{d}{dx}e^{u(x)} &= u'(x)\,e^{u(x)}
+&\int u'(x)\,e^{u(x)}\,dx &= e^{u(x)} + C
+\\[6pt]
+\frac{d}{dx}a^{u(x)} &= u'(x)\,a^{u(x)}\ln a
+&\int u'(x)\,a^{u(x)}\,dx &= \frac{a^{u(x)}}{\ln a} + C
+\\[10pt]
+%— Generic Logarithmic Substitution —
+\frac{d}{dx}\ln\lvert u(x)\rvert &= \frac{u'(x)}{u(x)}
+&\int \frac{u'(x)}{u(x)}\,dx &= \ln\lvert u(x)\rvert + C
+\\[6pt]
+\frac{d}{dx}\log_a\lvert u(x)\rvert &= \frac{u'(x)}{u(x)\,\ln a}
+&\int \frac{u'(x)}{u(x)\,\ln a}\,dx &= \log_a\lvert u(x)\rvert + C
+\\[10pt]
+%— Algebraic, Exponential \& Logarithmic —
+\frac{d}{dx}x^n &= n\,x^{n-1}
+&\int x^n\,dx &= \frac{x^{n+1}}{n+1} + C
+\\[6pt]
+\frac{d}{dx}e^x &= e^x
+&\int e^x\,dx &= e^x + C
+\\[6pt]
+\frac{d}{dx}a^x &= a^x\ln a
+&\int a^x\,dx &= \frac{a^x}{\ln a} + C
+\\[6pt]
+\frac{d}{dx}e^{p x+q} &= p\,e^{p x+q}
+&\int e^{p x+q}\,dx &= \frac{1}{p}e^{p x+q} + C
+\\[6pt]
+\frac{d}{dx}a^{p x+q} &= p\,a^{p x+q}\ln a
+&\int a^{p x+q}\,dx &= \frac{1}{p\ln a}\,a^{p x+q} + C
+\\[6pt]
+\frac{d}{dx}\ln x &= \tfrac1x
+&\int \tfrac{1}{x}\,dx &= \ln\lvert x\rvert + C
+\\[6pt]
+\frac{d}{dx}\log_a x &= \frac{1}{x\ln a}
+&\int \frac{1}{x\ln a}\,dx &= \log_a\lvert x\rvert + C
+\\[6pt]
+\frac{d}{dx}\ln\lvert a x + b\rvert &= \frac{a}{a x + b}
+&\int \frac{1}{a x + b}\,dx &= \frac{1}{a}\,\ln\lvert a x + b\rvert + C
+\\[10pt]
+\end{align*}
 \end{multicols}
 
 \newpage
 
-%=== Final Page: Paired Formulas ===
+%=== Page 2: Trigonometric Pairs ===
 \begin{multicols}{2}
-
-\section*{Derivative \& Integral Pairs}
+\section*{Trigonometric Derivative \& Integral Pairs}
 
 \begin{align*}
-\frac{d}{dx}x^n &= n\,x^{n-1}
-&\quad
-\int x^n\,dx &= \frac{x^{n+1}}{n+1}+C
-\\[6pt]
-\frac{d}{dx}e^x &= e^x
-&
-\int e^x\,dx &= e^x + C
-\\[6pt]
-\frac{d}{dx}a^x &= a^x\ln a
-&
-\int a^x\,dx &= \frac{a^x}{\ln a}+C
-\\[6pt]
-\frac{d}{dx}\ln x &= \tfrac1x
-&
-\int \tfrac{1}{x}\,dx &= \ln|x|+C
-\\[6pt]
-%% Trigonometric Functions %%
+%— Circular Functions —
 \frac{d}{dx}\sin x &= \cos x
-&
-\int \sin x\,dx &= -\cos x + C
+&\int \sin x dx &= -\cos x + C
 \\[6pt]
 \frac{d}{dx}\cos x &= -\sin x
-&
-\int \cos x\,dx &= \sin x + C
+&\int \cos x dx &= \sin x + C
 \\[6pt]
 \frac{d}{dx}\tan x &= \sec^2 x
-&
-\int \tan x\,dx &= -\ln\lvert\cos x\rvert + C
+&\int \tan x dx &= -\ln\lvert\cos x\rvert + C
 \\[6pt]
 \frac{d}{dx}\cot x &= -\csc^2 x
-&
-\int \cot x\,dx &= \ln\lvert\sin x\rvert + C
+&\int \cot x dx &= \ln\lvert\sin x\rvert + C
+\\[6pt]
+\frac{d}{dx}\sec x &= \sec x,\tan x
+&\int \sec x dx &= \ln\bigl\lvert\sec x+\tan x\bigr\rvert + C
+\\[6pt]
+\frac{d}{dx}\csc x &= -\csc x,\cot x
+&\int \csc x dx &= -\ln\bigl\lvert\csc x+\cot x\bigr\rvert + C
+\\[10pt]
+%— Compound Trigonometric Functions —
+\frac{d}{dx}\tan x &= \sec^2 x
+&\int \sec^2 x dx &= \tan x + C
+\\[6pt]
+\frac{d}{dx}\cot x &= -\csc^2 x
+&\int \csc^2 x dx &= -\cot x + C
 \\[6pt]
 \frac{d}{dx}\sec x &= \sec x\tan x
-&
-\int \sec x\,dx &= \ln\lvert\sec x+\tan x\rvert + C
+&\int \sec x\tan x dx &= \sec x + C
 \\[6pt]
 \frac{d}{dx}\csc x &= -\csc x\cot x
-&
-\int \csc x\,dx &= -\ln\lvert\csc x+\cot x\rvert + C
+&\int \csc x\cot x dx &= -\csc x + C
 \\[10pt]
-%% Inverse Trigonometric Functions %%
+\end{align*}
+
+\columnbreak
+
+\begin{align*}
+%— Inverse Circular —
 \frac{d}{dx}\arcsin x &= \frac{1}{\sqrt{1-x^2}}
-&
-\int \frac{1}{\sqrt{1-x^2}}\,dx &= \arcsin x + C
+&\int \frac{1}{\sqrt{1-x^2}},dx &= \arcsin x + C
 \\[6pt]
 \frac{d}{dx}\arccos x &= -\frac{1}{\sqrt{1-x^2}}
-&
-\int -\frac{1}{\sqrt{1-x^2}}\,dx &= \arccos x + C
+&\int -\frac{1}{\sqrt{1-x^2}},dx &= \arccos x + C
 \\[6pt]
 \frac{d}{dx}\arctan x &= \frac{1}{1+x^2}
-&
-\int \frac{1}{1+x^2}\,dx &= \arctan x + C
+&\int \frac{1}{1+x^2},dx &= \arctan x + C
+\\[6pt]
+\frac{d}{dx}\frac{1}{k}\arctan kx &= \frac{1}{1+(kx)^2}
+&\int \frac{1}{1+(kx)^2}dx &= \frac{1}{k}\arctan kx + C
+\\[6pt]
+\frac{d}{dx}\frac{1}{k}\arctan \frac{x}{k} &= \frac{1}{k^2+(x)^2}
+&\int \frac{1}{k^2+(x)^2}dx &= \frac{1}{k}\arctan \frac{x}{k} + C
 \\[6pt]
 \frac{d}{dx}\operatorname{arccot} x &= -\frac{1}{1+x^2}
-&
-\int -\frac{1}{1+x^2}\,dx &= \operatorname{arccot} x + C
+&\int -\frac{1}{1+x^2},dx &= \operatorname{arccot} x + C
 \\[6pt]
 \frac{d}{dx}\operatorname{arcsec} x &= \frac{1}{|x|\sqrt{x^2-1}}
-&
-\int \frac{1}{|x|\sqrt{x^2-1}}\,dx &= \operatorname{arcsec} x + C
+&\int \frac{1}{|x|\sqrt{x^2-1}}dx &= \operatorname{arcsec} x + C
 \\[6pt]
 \frac{d}{dx}\operatorname{arccsc} x &= -\frac{1}{|x|\sqrt{x^2-1}}
-&
-\int -\frac{1}{|x|\sqrt{x^2-1}}\,dx &= \operatorname{arccsc} x + C
+&\int -\frac{1}{|x|\sqrt{x^2-1}}dx &= \operatorname{arccsc} x + C
+\\[10pt]
+%— Hyperbolic & Inverse —
+\frac{d}{dx}\sinh x &= \cosh x
+&\int \cosh xdx &= \sinh x + C
+\\[6pt]
+\frac{d}{dx}\cosh x &= \sinh x
+&\int \sinh xdx &= \cosh x + C
+\\[6pt]
+\frac{d}{dx}\tanh x &= \operatorname{sech}^2 x
+&\int \operatorname{sech}^2 xdx &= \tanh x + C
+\\[6pt]
+\frac{d}{dx}\coth x &= -\operatorname{csch}^2 x
+&\int \operatorname{csch}^2 xdx &= -\coth x + C
+\\[6pt]
+\frac{d}{dx}\operatorname{arsinh} x &= \frac{1}{\sqrt{1+x^2}}
+&\int \frac{1}{\sqrt{1+x^2}}dx &= \operatorname{arsinh} x + C
+\\[6pt]
+\frac{d}{dx}\operatorname{arcosh} x &= \frac{1}{\sqrt{x^2-1}}
+&\int \frac{1}{\sqrt{x^2-1}}dx &= \operatorname{arcosh} x + C
+\\[6pt]
+\frac{d}{dx}\operatorname{artanh} x &= \frac{1}{1 - x^2}
+&\int \frac{1}{1 - x^2}dx &= \operatorname{artanh} x + C
+\\[6pt]
+\frac{d}{dx}\operatorname{arsech} x &= -\frac{1}{x\sqrt{1 - x^2}}
+&\int -\frac{1}{x\sqrt{1 - x^2}}dx &= \operatorname{arsech} x + C
+\\[6pt]
+\frac{d}{dx}\operatorname{arccsch} x &= -\frac{1}{|x|\sqrt{1 + x^2}}
+&\int -\frac{1}{|x|\sqrt{1 + x^2}}dx &= \operatorname{arccsch} x + C
 \end{align*}
 
 \end{multicols}
-
 \end{document}
