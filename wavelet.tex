@@ -49,8 +49,8 @@ The factor \( \cos(2\pi |f_1-f_2|t/2) \) modulates amplitude at the
 slightly, the amplitude rises and falls slowly; when they differ greatly,
 no slow modulation is audible or visible in the waveform.
 
-\paragraph{Concrete code example.}
 \begin{lstlisting}[language=Python,caption={One-second beat note at 110 Hz and 116 Hz}]
+
 import numpy as np, matplotlib.pyplot as plt
 from IPython.display import Audio
 
@@ -102,7 +102,6 @@ and frequency.  Dennis Gabor (1946) applied the same inequality to signal
 processing.  The Gaussian attains equality, giving the best possible
 simultaneous concentration in both domains.
 
-\paragraph{Concrete code example.}
 \begin{lstlisting}[language=Python,caption={Plot of Gaussian window with σ = 0.25 s}]
 sigma = 0.25
 t     = np.linspace(-1, 1, sr*2, endpoint=False)
@@ -181,7 +180,6 @@ HTML(ani.to_jshtml())
 Both phases are required: a local signal might begin at a maximum
 (cosine-aligned) or at a zero-crossing (sine-aligned).
 
-\paragraph{Concrete code example.}
 \begin{lstlisting}[language=Python,caption={Plot \& play real part of a Morlet packet}]
 def morlet_real(t, f=440, sigma=0.05):
     w = np.exp(-(t**2)/(2*sigma**2))
