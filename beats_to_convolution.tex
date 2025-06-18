@@ -1,0 +1,387 @@
+% !TEX TS-program = lualatex
+\documentclass[12pt]{article}
+
+% -------------------------------------------------
+% Packages
+% -------------------------------------------------
+\usepackage{fontspec}                 % modern Unicode fonts
+\usepackage{amsmath,amssymb,physics}  % maths
+\usepackage{geometry}                 % page layout
+\usepackage{graphicx}                 % images
+\usepackage{hyperref}                 % links
+\usepackage{listings}                 % nicely-formatted code
+\usepackage{xcolor}                   % colours for listings
+
+\geometry{margin=1in}
+
+% -------------------------------------------------
+% Listings setup
+% -------------------------------------------------
+\lstset{
+  language        = Python,
+  basicstyle      = \ttfamily\small,
+  commentstyle    = \color{gray},
+  keywordstyle    = \color{blue},
+  stringstyle     = \color{teal},
+  breaklines      = true,
+  breakautoindent = true,
+  showstringspaces= false,
+  columns         = fullflexible
+}
+
+% -------------------------------------------------
+\title{From Beats to Diffraction\\\large A Journey Through Waves}
+\date{\today}
+% -------------------------------------------------
+\begin{document}
+\maketitle
+\parindent 0pt
+\parskip   6pt
+
+%==================================================
+\section*{Prologue}
+We will travel through sound, light, and water the way early scientists did—asking \emph{why?} at every turn, inventing just \textbf{one new piece of maths} at a time, and checking our ideas with code you can run in Google~Colab.
+
+%==================================================
+\section{The First Mystery: Why Two Notes Throb (Audio Beats)}
+\subsection*{A Little Scene from 1787}
+Picture \textit{Ernst Chladni} striking two tuning-forks that disagree by the tiniest smidge. The air grows loud–soft–loud–soft like a giant breathing. Chladni wants to explain that pulse. Radio pioneer \textit{Reginald Fessenden} will later harness the same trick (\textasciitilde1900) to ride news and music on invisible waves.
+
+\subsection*{What We Are About to Do}
+We will \textbf{multiply} a fast wiggle (the \emph{carrier}) by a slow wiggle (the \emph{envelope}). When the envelope is high, the carrier grows; when it is low, the carrier shrinks. That arithmetic trick is called \emph{amplitude modulation}.
+
+\subsection*{The One New Formula}
+\begin{equation}
+  y(t)=A\,\sin(2\pi f_{c}t)\,\cos(2\pi f_{e}t)
+\end{equation}
+
+\textbf{How it works:}
+\begin{itemize}
+  \item \(A\): a constant that multiplies the combined wave to control overall loudness.
+  \item \(t\): the running clock on your stopwatch.
+  \item \(f_{c}\): carrier frequency—how many tiny wiggles per second (440\,Hz is the musical A).
+  \item \(f_{e}\): envelope frequency—how many loud–soft cycles per second.
+  \item \(\pi\): lower-case Greek pi (first printed by \textit{William Jones}, 1706).
+\end{itemize}
+
+\subsection*{Workable Examples}
+\begin{enumerate}
+  \item \textbf{Finding loudness at two instants.}  With \(A=1\), \(f_{c}=440\,\text{Hz}\) and \(f_{e}=5\,\text{Hz}\), compute \(y(0.002\,\text{s})\) and \(y(0.004\,\text{s})\) using the formula.
+  \item \textbf{Open question.}  If we double the envelope frequency to 10\,Hz, how does the time between loud peaks change?
+\end{enumerate}
+
+\subsection*{Python Check-up (Colab)}
+\begin{lstlisting}[caption=Beats in Python,label=lst:beats]
+import numpy as np, matplotlib.pyplot as plt
+
+A, fc, fe = 1, 440, 5
+t = np.linspace(0, 0.5, 20_000)
+y = A*np.sin(2*np.pi*fc*t) * np.cos(2*np.pi*fe*t)
+
+plt.plot(t*1e3, y)
+plt.xlabel('Time (ms)')
+plt.ylabel('Amplitude')
+plt.title('Audio Beat Wave')
+plt.show()
+\end{lstlisting}
+
+%==================================================
+\section{The Bell-Shaped Secret Window (Gaussian)}
+\subsection*{Gauss and the Star That Wouldn’t Sit Still (1809)}
+Astronomer \textit{Carl Friedrich Gauss} tried to guess where the dwarf planet Ceres had gone after it slipped behind the Sun. He needed a maths tool that gives \emph{full credit to the middle} and \emph{little credit to the edges}: the famous bell curve.
+
+\subsection*{What We Are About to Do}
+We will swap the cosine envelope for a \textbf{smooth bell} that starts small, swells gently, and falls away without a bump, producing a \emph{single burst} instead of endless throbs.
+
+\subsection*{The One New Formula}
+\begin{equation}
+  G(t)=\exp\!\bigl(-t^{2}/(2\sigma^{2})\bigr)
+\end{equation}
+
+\textbf{How it works:}
+\begin{itemize}
+  \item Inside the exponent, \(t^{2}\) grows fast as you walk away from zero; the minus sign makes \(G(t)\) shrink.
+  \item \(\sigma\) (sigma, lower-case; adopted for standard deviation by \textit{Karl Pearson}, 1894) sets how wide the hill is—larger \(\sigma\) makes a wider bell.
+\end{itemize}
+
+\subsection*{Workable Examples}
+\begin{enumerate}
+  \item \textbf{Half-second hill.}  With \(\sigma=0.1\,\text{s}\) find \(G(0)\) and \(G(0.1)\).
+  \item \textbf{Try widening the hill.}  Double \(\sigma\) to 0.2\,s. How tall is \(G(0.1)\) now?
+\end{enumerate}
+
+\subsection*{Python Sketch}
+\begin{lstlisting}[caption=Gaussian envelope,label=lst:gaussian]
+import numpy as np, matplotlib.pyplot as plt
+
+sigma = 0.1
+t = np.linspace(-0.5, 0.5, 1_000)
+G = np.exp(-(t**2) / (2*sigma**2))
+
+plt.plot(t, G)
+plt.title('Gaussian Envelope')
+plt.xlabel('t (s)')
+plt.ylabel('G(t)')
+plt.show()
+\end{lstlisting}
+
+%==================================================
+\section{A Single Audible Ping (Gaussian-Windowed Sine)}
+\subsection*{Gabor’s 1946 Thought Experiment}
+Engineer \textit{Dennis Gabor} imagined cutting a sine wave out of time with a bell window so he could paint pictures of sound in both time \emph{and} frequency. That idea won him a Nobel Prize and later gave birth to MP3s.
+
+\subsection*{What We Are About to Do}
+Glue the hill from Section~2 on top of the sine from Section~1. When the hill is high, the tone is loud; when low, silence.
+
+\subsection*{The One New Formula}
+\begin{equation}
+  y(t)=A\,e^{-t^{2}/(2\sigma^{2})}\,\sin\bigl(2\pi f_{c}t\bigr)
+\end{equation}
+
+\subsection*{Workable Examples}
+\begin{enumerate}
+  \item \textbf{Quick ping.}  With \(f_{c}=440\,\text{Hz}\) and \(\sigma=0.01\,\text{s}\), count the number of crest-to-crest oscillations under the bell. (Hint: audible span \(\approx6\sigma\).)
+  \item \textbf{Your turn.}  Make the bell five times wider. How many oscillations now?
+\end{enumerate}
+
+\subsection*{Python — Listen with Your Eyes}
+\begin{lstlisting}[caption=Gaussian-windowed tone,label=lst:ping]
+import numpy as np, matplotlib.pyplot as plt
+
+A, fc, sigma = 1, 440, 0.01
+t = np.linspace(-0.05, 0.05, 4_000)
+pulse = A*np.exp(-(t**2)/(2*sigma**2)) * np.sin(2*np.pi*fc*t)
+
+plt.plot(t*1e3, pulse)
+plt.xlabel('Time (ms)')
+plt.title('Gaussian-Windowed Audio Pulse')
+plt.show()
+\end{lstlisting}
+
+%==================================================
+\section{Slowing the Music for Water (Scaling Frequency)}
+\subsection*{George Airy Watches Ocean Swells (1845)}
+On a windy day the sea looks nothing like a violin string. \textit{Sir George Airy} noticed that water waves unfold in slow, heavy packets—perfect cousins to our audio ping but with far fewer wiggles.
+
+\subsection*{What We Are About to Do}
+Keep the same bell but \textbf{stretch time} so the sine hardly has time to wiggle. The trick: divide the frequency by a big number \(N\).
+
+\subsection*{The One New Formula}
+\begin{equation}
+  f_{w}=\frac{f_{c}}{N}, \qquad N\gg1
+\end{equation}
+
+\subsection*{Workable Examples}
+\begin{enumerate}
+  \item \textbf{Make 440 Hz crawl.}  With \(N=100\), compute \(f_{w}\) and sketch a water pulse under \(\sigma=0.5\) s.
+  \item \textbf{Challenge.}  What if \(N=500\)?
+\end{enumerate}
+
+\subsection*{Python Ripple}
+\begin{lstlisting}[caption=Slow ripple,label=lst:ripple]
+import numpy as np, matplotlib.pyplot as plt
+
+A, fc, N, sigma = 1, 440, 100, 0.5
+fw = fc / N
+t = np.linspace(-4, 4, 8_000)
+water = A*np.exp(-(t**2)/(2*sigma**2)) * np.sin(2*np.pi*fw*t)
+
+plt.plot(t, water)
+plt.title('Gaussian-Windowed Water Pulse')
+plt.xlabel('t (s)')
+plt.show()
+\end{lstlisting}
+
+%==================================================
+\section{From Line to Circle — The Pebble Splash (2-D Ripple)}
+\subsection*{Poisson \& Fresnel Draw Ripples (1818)}
+Working for Napoleon’s map-makers, \textit{Siméon Poisson} solved how a single splash spreads; \textit{Augustin-Jean Fresnel} soon borrowed the idea for light.
+
+\subsection*{What We Are About to Do}
+Drop our Section~3 pulse at the origin of a pond. The crest now forms a \textbf{circle}. We introduce the word \emph{wavefront}: the thin line marking everywhere the crest has reached.
+
+\subsection*{The One New Formula}
+\begin{equation}
+  u(r,t)=A\,e^{-(r-vt)^{2}/(2\sigma^{2})}\,\cos\bigl(k(r-vt)\bigr)
+\end{equation}
+
+\textbf{How it works:}
+\begin{itemize}
+  \item \(r=\sqrt{x^{2}+y^{2}}\) is distance from the splash.
+  \item \(v\) is wave speed.
+  \item \(k=2\pi/\lambda\) is the wave-number (\textit{Scott Russell}, 1844).
+  \item \(\lambda\) is wavelength (lower-case lambda; \textit{William Thomson}, 1850).
+\end{itemize}
+
+\subsection*{Workable Examples}
+\begin{enumerate}
+  \item \textbf{Pebble numbers.}  With \(v=0.3\) m/s, \(\lambda=0.1\) m, \(\sigma=0.05\) m, find the crest radius at \(t=1\) s and compute \(k\).
+  \item \textbf{Double \(\lambda\).}  How does ring spacing change?
+\end{enumerate}
+
+\subsection*{Python Pond Picture}
+\begin{lstlisting}[caption=Circular ripple,label=lst:pond]
+import numpy as np, matplotlib.pyplot as plt
+
+A, v, lam, sigma, t = 1, 0.3, 0.1, 0.05, 1.0
+k = 2*np.pi / lam
+
+x = y = np.linspace(-0.5, 0.5, 400)
+X, Y = np.meshgrid(x, y)
+r = np.sqrt(X**2 + Y**2)
+U = A*np.exp(-((r - v*t)**2)/(2*sigma**2)) * np.cos(k*(r - v*t))
+
+plt.imshow(U, extent=[-0.5, 0.5, -0.5, 0.5], origin='lower', cmap='RdBu')
+plt.colorbar(label='Amplitude')
+plt.title('Circular Ripple at t = 1 s')
+plt.xlabel('x (m)')
+plt.ylabel('y (m)')
+plt.show()
+\end{lstlisting}
+
+%==================================================
+\section{From 1-D to 2-D – Circular Ripple Packet}
+
+\subsection*{What We Are About to Do}
+We let the Gaussian-windowed tone from Section 4 explode outward in every direction.  
+Each crest is now a \textbf{circle} whose radius grows at the wave-speed \(v\).  
+The bell envelope still keeps the packet finite, so it travels as a neat, moving hill on the pond.
+
+\subsection*{The One New Formula}
+\begin{equation}
+U(r,t)=A\,\exp\!\Bigl[-\frac{(r-vt)^2}{2\sigma^{2}}\Bigr]\,
+\cos\bigl(k(r-vt)\bigr)
+\end{equation}
+
+\subsection*{How it Works}
+\begin{itemize}
+  \item \(r=\sqrt{x^{2}+y^{2}}\) is how far you are from the splash point.
+  \item The bell centre sits at \(r=vt\); that term makes the packet \emph{move} without changing shape.
+  \item The exponential provides the smooth bell.  Width \(\sigma\) decides how fat the packet is.
+  \item \(k=2\pi/\lambda\) sets ripple spacing; bigger \(k\) means more ripples per metre.
+  \item \(A\) is a master volume knob for the whole field.
+\end{itemize}
+
+\subsection*{Workable Examples}
+\begin{enumerate}
+  \item \textbf{Surface ripple.}  With \(v=0.30\;\text{m s}^{-1}\), \(\lambda=0.15\;\text{m}\), \(\sigma=0.20\;\text{m}\), find the crest radius at \(t=2\;\text{s}\).
+  \item \textbf{Slower packet.}  Keep \(\lambda,\sigma\) but set \(v=0.10\;\text{m s}^{-1}\). Where is the crest at \(t=2\;\text{s}\)?
+\end{enumerate}
+
+\subsection*{Python/Colab Verification}
+\begin{lstlisting}[caption=Circular packet,label=lst:packet]
+import numpy as np, matplotlib.pyplot as plt
+
+x = y = np.linspace(-1, 1, 400)
+X, Y = np.meshgrid(x, y)
+r = np.sqrt(X**2 + Y**2)
+
+v, lam, sigma, t = 0.30, 0.15, 0.20, 2.0
+k = 2*np.pi / lam
+U = np.exp(-(r - v*t)**2 / (2*sigma**2)) * np.cos(k * (r - v*t))
+
+plt.imshow(U, cmap='RdBu', extent=[-1, 1, -1, 1])
+plt.colorbar()
+plt.title('Circular Ripple Packet')
+plt.show()
+\end{lstlisting}
+
+%==================================================
+\section{Straight-Edge Impulse \& Convolution of Many Point Sources}
+
+\subsection*{What We Are About to Do}
+Instead of a single splash, we strike an entire straight board on the water.  
+We model the board by adding \emph{infinitely many} little circular packets—one for each point along the edge—and summing them up with an integral.
+
+\subsection*{The One New Formula}
+\begin{equation}
+U_{\text{line}}(x,y,t)=\int_{-L/2}^{L/2}
+U\!\bigl(r',t\bigr)\,\dd x', \qquad
+r'=\sqrt{(x-x')^{2}+y^{2}}
+\end{equation}
+
+\subsection*{How it Works}
+\begin{itemize}
+  \item Each \(x'\) along the board launches a packet \(U(r',t)\).
+  \item The distance \(r'\) from that source to the observation point \((x,y)\) sets the packet’s delay.
+  \item The integral \(\int\dd x'\) adds all these contributions, building the full wavefront.
+  \item Board length \(L\) controls how wide the summed pulse is: long boards make flatter, broader fronts.
+\end{itemize}
+
+\subsection*{Workable Examples}
+\begin{enumerate}
+  \item \textbf{Long board.}  \(L=1.0\;\text{m}\), \(v=0.30\;\text{m s}^{-1}\), \(\sigma=0.20\;\text{m}\), \(t=1\;\text{s}\) — show the nearly flat crest at \(y=0.5\;\text{m}\).
+  \item \textbf{Short paddle.}  \(L=0.20\;\text{m}\) — observe the much stronger curvature.
+\end{enumerate}
+
+\subsection*{Python/Colab Verification}
+\begin{lstlisting}[caption=Line-source superposition,label=lst:line]
+import numpy as np, matplotlib.pyplot as plt
+
+v, lam, sigma = 0.30, 0.15, 0.20
+k = 2*np.pi / lam
+L, t, y_obs = 1.0, 1.0, 0.5
+
+x_obs = np.linspace(-2, 2, 400)
+
+def point_packet(r):
+    return np.exp(-(r - v*t)**2/(2*sigma**2)) * np.cos(k*(r - v*t))
+
+U_line = []
+for x in x_obs:
+    xs = np.linspace(-L/2, L/2, 400)
+    r = np.sqrt((x - xs)**2 + y_obs**2)
+    U_line.append(np.trapz(point_packet(r), xs))
+
+plt.plot(x_obs, U_line)
+plt.title('Wavefront from Straight Edge')
+plt.xlabel('x (m)')
+plt.show()
+\end{lstlisting}
+
+%==================================================
+\section{Obstacle \& Re-Emission – Diffraction at a Slit}
+
+\subsection*{What We Are About to Do}
+We shine our wave through a narrow opening and ask how bright the far-field pattern is at each angle.  
+Mathematically, that means taking the Fourier transform of a rectangular aperture—classical single-slit diffraction.
+
+\subsection*{The One New Formula}
+\begin{equation}
+I(\theta)=I_{0}\Bigl[\tfrac{\sin\beta}{\beta}\Bigr]^{2},
+\qquad
+\beta=\frac{\pi a}{\lambda}\sin\theta
+\end{equation}
+
+\subsection*{How it Works}
+\begin{itemize}
+  \item \(a\) is slit width; narrower \(a\) spreads the pattern wider.
+  \item \(\theta\) measures the observation angle from the central axis.
+  \item \(\beta\) is a phase term: each path through the slit gains a phase proportional to \(\sin\theta\).
+  \item The squared \(\sin\beta/\beta\) factor makes a bright central maximum and evenly spaced dark minima where \(\beta=n\pi\).
+  \item \(I_{0}\) simply scales the whole intensity curve.
+\end{itemize}
+
+\subsection*{Workable Examples}
+\begin{enumerate}
+  \item \textbf{Red laser.}  \(\lambda=650\,\text{nm}\), \(a=0.10\,\text{mm}\).  First dark at \(\sin\theta\approx\lambda/a\approx6.5\times10^{-3}\). Calculate \theta.
+  \item \textbf{Narrower slit.}  \(a=0.05\,\text{mm}\) — the first-dark angle changes to what \theta?
+\end{enumerate}
+
+\subsection*{Python/Colab Verification}
+\begin{lstlisting}[caption=Single-slit diffraction,label=lst:slit]
+import numpy as np, matplotlib.pyplot as plt
+
+lam, a = 532e-9, 0.10e-3
+theta = np.linspace(-5e-3, 5e-3, 2_000)
+beta  = np.pi * a * np.sin(theta) / lam
+I     = (np.sinc(beta / np.pi))**2
+
+plt.plot(np.degrees(theta), I)
+plt.xlabel(r'$\theta$ (deg)')
+plt.ylabel('Relative Intensity')
+plt.title('Single-Slit Fraunhofer Diffraction')
+plt.show()
+\end{lstlisting}
+
+\end{document}
