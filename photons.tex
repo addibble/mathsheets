@@ -1,0 +1,176 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{physics}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[C]{The Photoelectric Effect}
+\fancyhead[R]{Einstein, 1905}
+
+\title{\bfseries The Photoelectric Effect: Experimental Evidence for the Particle Nature of Light}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Objective}
+To demonstrate that light exhibits particle-like behavior by using a simple electroscope and ultraviolet light to reproduce the essential findings of the photoelectric effect, as explained by Albert Einstein in 1905.
+
+\section*{Background}
+Classically, light was understood as a continuous electromagnetic wave. Wave theory predicted that increasing light intensity should increase the energy delivered to a surface, regardless of color (frequency). However, this prediction fails to explain observed phenomena such as the photoelectric effect.
+
+In 1905, Albert Einstein proposed that light consists of discrete packets of energy called \emph{quanta} or \emph{photons}. He wrote:
+
+\begin{quote}
+    ``Energy of light is not distributed continuously over wavefronts, but rather consists of energy quanta of magnitude $E = hf$, where $h$ is Planck's constant and $f$ is the frequency of light.'' \\
+    \hfill -- Einstein, \emph{Annalen der Physik}, 1905
+\end{quote}
+
+This model explained why electrons are only emitted from a material when the incoming light has a frequency above a certain threshold, regardless of intensity.
+
+\section*{Einstein's Predictions}
+Einstein's photon theory made the following predictions, in direct contrast with classical wave theory:
+
+\begin{enumerate}[label=(\alph*)]
+    \item Electrons are ejected only if the light frequency $f$ exceeds a material-specific threshold $f_0$.
+    \item The kinetic energy of emitted electrons increases linearly with frequency, $K_{\text{max}} = hf - \phi$, where $\phi$ is the work function.
+    \item There is no time delay in electron emission, even at low light intensities.
+    \item Increasing intensity at sub-threshold frequencies produces no emission.
+\end{enumerate}
+
+\section*{Materials (DIY Setup)}
+\begin{itemize}
+    \item Aluminum foil
+    \item Clear plastic or glass cup/jar
+    \item Thin strips of foil (electroscope leaves)
+    \item Plastic comb or rod
+    \item Wool cloth or sweater
+    \item UV flashlight (365--395 nm, ideally with visible-blocking filter)
+    \item Glass from picture frame (UV-blocking)
+    \item Optional: visible LED flashlight (for comparison)
+\end{itemize}
+
+\section*{Procedure}
+\begin{enumerate}
+    \item Construct an electroscope: tape a vertical strip of foil inside a clear container and attach two thin foil strips at the bottom to act as leaves.
+    \item Charge the electroscope negatively by rubbing a plastic comb with wool and touching it to the top foil.
+    \item Observe that the leaves repel due to electrostatic force.
+    \item Shine a visible flashlight on the top of the foil: no change should occur.
+    \item Shine the UV flashlight on the foil: leaves should collapse as photoelectrons escape.
+    \item Insert a pane of glass between the UV light and the foil: emission stops, proving UV is necessary.
+\end{enumerate}
+
+\section*{Extended Theory}
+
+\subsection*{1. The Work Function and Photon Energy}
+The \textbf{work function} $\phi$ is the minimum energy needed to remove an electron from a material's surface. It is typically expressed in electronvolts (eV).
+
+\begin{itemize}
+    \item Zinc: $\phi \approx 4.3\ \text{eV}$
+    \item Aluminum: $\phi \approx 4.1\ \text{eV}$
+\end{itemize}
+
+The energy of a photon is:
+\[
+E = hf = \frac{hc}{\lambda}
+\]
+
+Where:
+\begin{itemize}
+    \item $h = 6.626 \times 10^{-34}$ J$\cdot$s
+    \item $c = 3.00 \times 10^8$ m/s
+    \item $\lambda$ is the wavelength (in meters)
+\end{itemize}
+
+In electronvolts:
+\[
+E (\text{eV}) = \frac{1240}{\lambda\ (\text{nm})}
+\]
+
+\textbf{Examples:}
+\begin{itemize}
+    \item $\lambda = 400$ nm: $E \approx 3.1$ eV
+    \item $\lambda = 300$ nm: $E \approx 4.13$ eV
+    \item $\lambda = 250$ nm: $E \approx 4.96$ eV
+\end{itemize}
+
+Thus, only UV light below ~300 nm consistently exceeds the work function for common metals.
+
+\subsection*{2. Einstein's Evidence for $E = hf$}
+Einstein proposed:
+\[
+K_{\text{max}} = hf - \phi
+\]
+
+Where:
+\begin{itemize}
+    \item $K_{\text{max}}$ is the kinetic energy of emitted electrons,
+    \item $hf$ is photon energy,
+    \item $\phi$ is the work function.
+\end{itemize}
+
+This explained:
+\begin{itemize}
+    \item Threshold frequency behavior
+    \item Linear relationship of $K_{\text{max}}$ with frequency
+    \item No delay in emission
+    \item Intensity has no effect below threshold frequency
+\end{itemize}
+
+Robert Millikan confirmed this experimentally in 1916, measuring $K_{\text{max}}$ vs. $f$ and validating Einstein's model.
+
+\subsection*{3. Electrostatics of the Foil Electroscope}
+The repulsion between foil leaves is due to stored negative charge:
+\[
+Q = CV
+\]
+Where:
+\begin{itemize}
+    \item $Q$ is the charge,
+    \item $C$ is capacitance (typically $1$--$10$ pF),
+    \item $V$ is voltage (often ~100 V from comb charging)
+\end{itemize}
+
+\[
+Q \approx 10^{-11}\ \text{C} \Rightarrow \sim 6 \times 10^7\ \text{electrons}
+\]
+
+If each UV photon ejects one electron, then:
+\begin{itemize}
+    \item Millions of photons must strike per second to significantly discharge the foil
+    \item Visible photons (e.g., $\lambda > 400$ nm, $E < 3.1$ eV) cannot eject any electrons
+\end{itemize}
+
+\section*{Conclusion}
+This experiment shows that:
+\begin{itemize}
+    \item Bright visible light cannot eject electrons
+    \item Dim UV light can, immediately and efficiently
+    \item UV-blocking glass stops emission
+\end{itemize}
+
+These observations support Einstein's photon theory and refute classical wave explanations.
+
+\section*{Historical Context}
+Einstein's 1905 paper, \emph{``Über einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen Gesichtspunkt''}, proposed the revolutionary idea of light quanta. For this, he received the 1921 Nobel Prize in Physics:
+
+\begin{quote}
+    \emph{``For his services to theoretical physics, and especially for his discovery of the law of the photoelectric effect.''}
+\end{quote}
+
+\section*{References}
+\begin{itemize}
+    \item Einstein, A. (1905). \emph{Annalen der Physik}, 17, 132--148. \url{https://einsteinpapers.press.princeton.edu/vol2-trans/100}
+    \item Feynman, R. (1963). \emph{The Feynman Lectures on Physics, Vol. 1, Chapter 37}
+    \item Young, H. D., Freedman, R. A. (2019). \emph{University Physics}, 15th ed.
+\end{itemize}
+
+\end{document}

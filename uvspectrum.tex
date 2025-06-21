@@ -1,0 +1,166 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{physics}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[C]{Photon Energy and Sunscreen}
+\fancyhead[R]{UV Physics}
+
+\title{\bfseries Photon Energy and Sunscreen Molecule Absorption Worksheet}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Objective}
+Calculate the energy of photons at different wavelengths and identify which sunscreen molecules are capable of absorbing or blocking them.
+
+\section*{Photon Energy Formula}
+
+The energy of a single photon depends on its wavelength and is calculated using:
+
+\[
+E = \frac{hc}{\lambda}
+\]
+
+Where:
+\begin{itemize}
+    \item $E$ is energy in joules (J)
+    \item $h = 6.626 \times 10^{-34}\ \text{J}\cdot\text{s}$ (Planck's constant)
+    \item $c = 3.00 \times 10^8\ \text{m/s}$ (speed of light)
+    \item $\lambda$ is the wavelength in meters (m)
+\end{itemize}
+
+To express energy in electronvolts (eV), we divide by the elementary charge:
+
+\[
+E(\text{eV}) = \frac{hc}{\lambda} \cdot \frac{1}{e}
+\quad \text{where } e = 1.602 \times 10^{-19}\ \text{C}
+\]
+
+Substituting numerical values and converting nanometers to meters:
+
+\[
+E(\text{eV}) = \frac{(6.626 \times 10^{-34})(3.00 \times 10^8)}{(1.602 \times 10^{-19})(\lambda \times 10^{-9})}
+\]
+
+\[
+E(\text{eV}) = \frac{1.986 \times 10^{-25}}{1.602 \times 10^{-28} \cdot \lambda}
+= \frac{1240}{\lambda\ (\text{nm})}
+\]
+
+\noindent
+\textbf{Therefore, the simplified formula:}
+
+\[
+E(\text{eV}) = \frac{1240}{\lambda\ (\text{nm})}
+\]
+
+gives the energy of a photon in electronvolts when the wavelength is expressed in nanometers.
+
+\section*{Clarifying the Constant \( e \): Charge vs. Euler’s Number}
+
+In the formula for photon energy in electronvolts:
+
+\[
+E(\text{eV}) = \frac{hc}{\lambda} \cdot \frac{1}{e}
+\]
+
+the symbol \( e \) refers to the \textbf{elementary charge}, not Euler’s number.
+
+\begin{itemize}
+    \item \( e = 1.602 \times 10^{-19}\ \text{C} \) is the electric charge of a single electron or proton.
+    \item It is used to convert energy from joules (J) to electronvolts (eV), since:
+    \[
+    1\ \text{eV} = 1.602 \times 10^{-19}\ \text{J}
+    \]
+\end{itemize}
+
+\noindent
+In contrast, Euler’s number \( e \approx 2.718 \) is a mathematical constant used in exponential functions, and is not involved in photon energy calculations.
+
+\vspace{0.5em}
+\noindent
+\textbf{Remember:} In physics, always check whether a symbol like \( e \) refers to a physical constant or a mathematical one based on the context.
+
+\section*{Types of UV Light}
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{UV Band} & \textbf{Wavelength Range (nm)} \\
+\hline
+UV-C & 100–280 \\
+UV-B & 280–315 \\
+UV-A & 315–400 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section*{Sunscreen Molecule Absorption Ranges}
+
+\begin{center}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Molecule} & \textbf{Absorption Range (nm)} \\
+\hline
+Oxybenzone & 270–350 \\
+Avobenzone & 310–400 \\
+Octinoxate & 280–320 \\
+Zinc oxide & 280–400 (broad-spectrum) \\
+Titanium dioxide & 290–400 (broad-spectrum) \\
+\hline
+\end{tabular}
+\end{center}
+
+\section*{Exercise 1: Photon Energies}
+
+Use the formula \( E(\text{eV}) = \frac{1240}{\lambda} \) to fill in the missing energies.
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Wavelength (nm) & Energy (eV) \\
+\hline
+250 & \underline{\hspace{3cm}} \\
+280 & \underline{\hspace{3cm}} \\
+310 & \underline{\hspace{3cm}} \\
+350 & \underline{\hspace{3cm}} \\
+400 & \underline{\hspace{3cm}} \\
+500 & \underline{\hspace{3cm}} \\
+\hline
+\end{tabular}
+\end{center}
+
+\section*{Exercise 2: Match Wavelengths to Absorbing Molecules}
+
+For each wavelength below, list all the sunscreen molecules from the table that are capable of absorbing or blocking that wavelength.
+
+\begin{itemize}
+    \item 250 nm: \underline{\hspace{10cm}}
+    \item 280 nm: \underline{\hspace{10cm}}
+    \item 310 nm: \underline{\hspace{10cm}}
+    \item 350 nm: \underline{\hspace{10cm}}
+    \item 400 nm: \underline{\hspace{10cm}}
+    \item 500 nm: \underline{\hspace{10cm}}
+\end{itemize}
+
+\section*{Discussion Questions}
+
+\begin{enumerate}
+    \item Why can't red light (e.g., 600–700 nm) cause sunburn, even though it's bright?
+    \item Which molecules offer the best protection against UV-B? Against UV-A?
+    \item What does “broad-spectrum” mean in sunscreen labels?
+    \item Why is UV-C not usually a concern in daily sunscreen use?
+\end{enumerate}
+
+\end{document}
