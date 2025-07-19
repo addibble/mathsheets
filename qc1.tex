@@ -1,0 +1,238 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{physics}    % \ket, \bra, \braket, \norm, etc.
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\bfseries Single-Qubit Introduction}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-2em}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{1 \quad What Is a Qubit?}
+A qubit is the \emph{quantum analogue} of a classical bit.  Mathematically
+it is a \textbf{unit vector} in a two–dimensional complex vector space.
+Dirac’s \textit{bra–ket} notation writes such vectors as
+\[
+   \ket{\psi} \;=\; \alpha\ket{0}+\beta\ket{1},
+   \qquad
+   \alpha,\beta\in\mathbb{C},\;
+   \abs{\alpha}^{2}+\abs{\beta}^{2}=1.
+\]
+The Greek letter $\psi$ (psi) labels the state; the vertical bar and
+angle bracket form a \emph{ket}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{2 \quad Why Those Particular Column Vectors?}
+
+\begin{itemize}
+  \item $\ket{0}\!=\!\begin{bmatrix}1\\0\end{bmatrix}$ and
+        $\ket{1}\!=\!\begin{bmatrix}0\\1\end{bmatrix}$ are chosen as the
+        \emph{computational basis}.  They are
+        \textbf{orthonormal}—see \S\ref{subsec:orthonormal-definition}.
+  \item Any qubit state can be written as a linear combination
+        $\alpha\ket{0}+\beta\ket{1}$ because $\{\ket{0},\ket{1}\}$ is a
+        complete basis for $\mathbb{C}^{2}$.
+\end{itemize}
+
+\subsection*{(What does \textit{orthonormal} mean?)}%
+\label{subsec:orthonormal-definition}
+
+Let $\ket{u}$ and \(\ket{v}\) be column vectors in a complex vector
+space.
+
+\paragraph{1. Conjugate transpose (\texorpdfstring{$\dagger$}{†}).}
+Given a column vector
+$
+  \ket{u}=\begin{bmatrix}u_{1}\\u_{2}\\\vdots\\u_{n}\end{bmatrix},
+$
+its \textbf{conjugate transpose} (also called the
+\emph{Hermitian adjoint}) is
+\[
+   \ket{u}^{\dagger}
+   \;=\;
+   \begin{bmatrix}
+     u_{1}^{*} & u_{2}^{*} & \dots & u_{n}^{*}
+   \end{bmatrix},
+\]
+where \(\,*\) denotes complex conjugation.  In words:
+\begin{enumerate}
+  \item \emph{Transpose}: turn the column into a row.
+  \item \emph{Conjugate}: replace each entry \(a+ib\) with \(a-ib\).
+\end{enumerate}
+For a matrix \(A\), \(A^{\dagger}=(A^{T})^{*}\)---transpose first, then
+conjugate every element.
+
+\paragraph{2. Inner product.}
+The \emph{Dirac inner product} of \(\ket{u}\) and \(\ket{v}\) is
+\[
+   \braket{u}{v}
+   \;=\;
+   \ket{u}^{\dagger}\ket{v}
+   \;=\;
+   \sum_{i=1}^{n}u_{i}^{*}\,v_{i}.
+\]
+
+\paragraph{3. Orthogonality.}
+Vectors are \textbf{orthogonal} when their inner product vanishes:
+\[
+   \braket{u}{v}=0.
+\]
+
+\paragraph{4. Normalisation.}
+A vector is \textbf{normalised} when its inner product with itself
+equals 1:
+\[
+   \braket{u}{u}=1.
+\]
+Its \textbf{norm} (length) is \(\norm{\ket{u}}=\sqrt{\braket{u}{u}}\).
+
+\paragraph{5. Orthonormality.}
+A set of vectors is \emph{orthonormal} if every pair is orthogonal and
+every vector is normalised:
+\[
+   \braket{u}{v}=0,\qquad
+   \braket{u}{u}=1,\;
+   \braket{v}{v}=1,\;\dots
+\]
+
+\paragraph{Example (computational basis).}
+\[
+   \braket{0}{1}
+   =\begin{bmatrix}1&0\end{bmatrix}
+     \begin{bmatrix}0\\1\end{bmatrix}
+   =0,
+   \qquad
+   \braket{0}{0}=1,\;
+   \braket{1}{1}=1.
+\]
+Thus \(\{\ket{0},\ket{1}\}\) is orthonormal, and
+\(\norm{\ket{0}}=\norm{\ket{1}}=1\).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{3 \quad Probabilities from Amplitudes}
+
+If \(\ket{\psi}=\alpha\ket{0}+\beta\ket{1}\), measuring in the
+computational basis yields
+\[
+   P(0)=\abs{\alpha}^{2},\qquad
+   P(1)=\abs{\beta}^{2}.
+\]
+The squared modulus converts a complex amplitude into a real,
+non-negative probability, and normalisation
+\(\abs{\alpha}^{2}+\abs{\beta}^{2}=1\) guarantees the outcomes exhaust
+all possibilities.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{4 \quad Two Fundamental Single-Qubit Gates}
+
+\subsection*{4.1 \quad Pauli–X Gate (Bit Flip)}
+\[
+   X =
+   \begin{bmatrix}
+     0 & 1\\
+     1 & 0
+   \end{bmatrix},
+   \qquad
+   X\ket{0}=\ket{1},\;
+   X\ket{1}=\ket{0}.
+\]
+
+\subsection*{4.2 \quad Hadamard Gate (Superposition Maker)}
+\[
+   H =
+   \frac{1}{\sqrt{2}}
+   \begin{bmatrix}
+     1 &  1\\
+     1 & -1
+   \end{bmatrix},
+   \qquad
+   H\ket{0}=\tfrac1{\sqrt2}(\ket{0}+\ket{1}),\;
+   H\ket{1}=\tfrac1{\sqrt2}(\ket{0}-\ket{1}).
+\]
+\(H\) is its own inverse (\(H^{2}=I\)) and converts definite states into
+equal superpositions (and vice versa).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{5 \quad Worked Examples}
+
+\subsection*{Example 1: Apply \(X\) to \(\ket{0}\)}
+\[
+   X\ket{0} =
+   \begin{bmatrix}0&1\\1&0\end{bmatrix}
+   \begin{bmatrix}1\\0\end{bmatrix}
+   =
+   \begin{bmatrix}0\\1\end{bmatrix}
+   =\ket{1}.
+\]
+
+\subsection*{Example 2: Apply \(H\) to \(\ket{0}\)}
+\[
+   H\ket{0}
+   =
+   \frac1{\sqrt2}
+   \begin{bmatrix}1&1\\1&-1\end{bmatrix}
+   \begin{bmatrix}1\\0\end{bmatrix}
+   =
+   \frac1{\sqrt2}
+   \begin{bmatrix}1\\1\end{bmatrix}
+   =
+   \tfrac1{\sqrt2}(\ket{0}+\ket{1}).
+\]
+
+\subsection*{Example 3: Apply \(H\) to \(\ket{1}\)}
+\[
+   H\ket{1}
+   =
+   \frac1{\sqrt2}
+   \begin{bmatrix}1&1\\1&-1\end{bmatrix}
+   \begin{bmatrix}0\\1\end{bmatrix}
+   =
+   \frac1{\sqrt2}
+   \begin{bmatrix}1\\-1\end{bmatrix}
+   =
+   \tfrac1{\sqrt2}(\ket{0}-\ket{1}).
+\]
+
+\subsection*{Example 4: Verify \(H^{2}=I\)}
+\[
+  H^{2}
+  =
+  \Bigl(\tfrac1{\sqrt2}\Bigr)^{\!2}
+  \begin{bmatrix}1&1\\1&-1\end{bmatrix}^{2}
+  =
+  \frac12
+  \begin{bmatrix}
+     2 & 0\\
+     0 & 2
+  \end{bmatrix}
+  =
+  \begin{bmatrix}1&0\\0&1\end{bmatrix}=I_{2}.
+\]
+
+\paragraph{Guided exercise.}
+Show that \(HXH=Z\), where
+\(Z=\begin{bmatrix}1&0\\0&-1\end{bmatrix}\), and evaluate
+\(HXH\ket{0}\) and \(XHX\ket{0}\),
+noting the phase difference.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{6 \quad Key Takeaways}
+
+\begin{enumerate}
+  \item A qubit is a length-1 complex vector.
+  \item \textbf{Orthonormal} basis vectors are perpendicular
+        (\(\braket{u}{v}=0\)) \emph{and} length-1
+        (\(\braket{u}{u}=1\), \(\norm{\ket{u}}=1\)).
+  \item Conjugate transpose (\(^{\dagger}\)) means transpose + complex
+        conjugation.
+  \item Probabilities come from squared moduli of amplitudes.
+  \item Single-qubit gates are \(2\times2\) unitary matrices.
+\end{enumerate}
+
+\end{document}
