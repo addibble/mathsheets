@@ -1,0 +1,66 @@
+📄 Product Requirements Document (PRD)
+
+🧩 Product Name
+RuleScope (working title)
+A probabilistic behavioral analysis tool for tracking and modeling teenage rule-breaking behavior.
+🎯 Purpose
+RuleScope is an application designed to model and evaluate the probability of a teenager breaking predefined rules (e.g., curfew, lying, skipping class). It enables guardians or researchers to predefine behavioral hypotheses, input observational data, and receive probabilistic inferences—supporting both real-time adjudication and long-term behavioral pattern analysis.
+🧑‍🤝‍🧑 Target Users
+Parents/guardians seeking structured, unbiased insight into teen behavior
+Behavioral scientists or educators conducting observational studies
+Developers prototyping AI-assisted behavioral prediction tools
+🎯 Goals
+Provide a transparent framework for defining and testing behavioral hypotheses.
+Prevent post-hoc rationalization by enforcing pre-registration of hypotheses.
+Support evidence-based decision-making using statistical inference (primarily Bayesian).
+Visualize behavioral trends and evolving probabilities.
+🔑 Key Features
+1. Hypotheses Engine
+Create and register behavioral hypotheses with:
+Description
+Conditions (e.g., context, triggers)
+Prior probability estimate
+Associated rule type (e.g., curfew, honesty)
+Lock hypotheses to prevent post-hoc editing once data collection begins
+2. Event Logging System
+Add daily or incident-based observations, e.g.:
+Time of arrival
+Claimed location vs. verified location
+Supervision status
+External context (party, test, argument, etc.)
+Tag events to link with specific hypotheses
+3. Probability Inference Engine
+Calculate posterior probabilities using Bayesian updating
+Show evolving confidence in each hypothesis over time
+Optional: allow manual tuning of priors or likelihood models
+4. Dashboard
+Visual summaries:
+Hypothesis status and confidence
+Recent incidents
+Rule violation rates and trend lines
+Decision assistant view:
+“How likely is it that the teen broke curfew yesterday?”
+“Which hypothesis is best supported by current evidence?”
+5. Simulation & Forecasting
+(Future roadmap)
+Run simulations to project future probabilities under various scenarios (e.g., adding supervision, reducing access to friends)
+Highlight high-risk time windows
+📱 Platforms
+MVP: Web application (React frontend, Python backend)
+Optional CLI version for researchers
+Mobile-friendly layout (future phase)
+🧪 Technical Assumptions
+Backend in Python with probabilistic modeling (PyMC, NumPyro, or custom Bayes logic)
+Lightweight relational database (e.g., SQLite, PostgreSQL)
+Frontend in React or Svelte with simple charts (e.g., Chart.js or Recharts)
+🚧 Constraints & Risks
+Subjectivity in observations may skew model (e.g., bias in logging events)
+Overconfidence in probabilistic outputs could lead to unjustified interventions
+Hypotheses need to be well-calibrated to be meaningful
+Privacy and ethical considerations when tracking real-world behavior
+✅ Success Criteria
+Users consistently define hypotheses before data entry
+Inferences improve with more logged data (validated against known outcomes)
+Users report better confidence in decisions through data
+System can visualize trends and alert on high-risk scenarios
+
