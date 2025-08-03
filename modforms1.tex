@@ -1,0 +1,199 @@
+\documentclass[11pt]{article}
+\usepackage{fontspec}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep,topsep=0pt}
+\usepackage{hyperref}
+
+\title{Continued Fractions and Convergents}
+\author{Prepared for a first exposure to modular forms}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Lesson 1: Continued Fractions and Quadratic Irrationals}
+
+\paragraph{What we will build.}
+We learn how quadratic irrationals like $\sqrt{23}$ have \emph{periodic} simple continued fraction (SCF) expansions. This is the gateway from concrete arithmetic to the geometry and dynamics that later underlie modular forms.
+
+\paragraph{Historical vignette.}
+Continued fractions grow out of the Euclidean algorithm (Euclid, \emph{Elements}, c.\ 300~BCE) for computing greatest common divisors. J.\ L.\ Lagrange (1768) proved that a real number has a periodic SCF if and only if it is a quadratic irrational. He was motivated by Diophantine approximation and the Pell equation. The term “Diophantine” comes from the ancient Greek mathematician \textbf{Diophantus of Alexandria} (3rd century CE), who studied equations involving only integers and introduced methods for solving them in his influential work \emph{Arithmetica}.
+\smallskip
+\noindent
+The Pell equation is of the form
+\[
+x^2 - D y^2 = 1,
+\]
+where \( D \) is a fixed positive integer that is not a perfect square, and we seek integer pairs \( (x, y) \). Despite being named after John Pell, this equation was deeply studied in India centuries earlier by Brahmagupta (7th century) and Bhaskara II (12th century). Lagrange later showed that for every such \( D \), this equation has infinitely many integer solutions, and that these solutions can be found using the continued fraction expansion of \( \sqrt{D} \). The periodic nature of this expansion encodes the structure of those solutions.
+
+\paragraph{Continued Fractions Formula}
+For any non-square integer $D>0$,
+\[
+\sqrt{D}=\bigl[a_0;\,\overline{a_1,a_2,\dots,a_\ell}\bigr],
+\]
+i.e., the simple continued fraction of $\sqrt{D}$ is eventually periodic, in fact purely periodic after $a_0=\lfloor\sqrt{D}\rfloor$.
+
+\smallskip
+\noindent
+The expression $a_0 = \lfloor \sqrt{D} \rfloor$ uses the \emph{floor function} notation, where the symbols $\lfloor \cdot \rfloor$ denote the greatest integer less than or equal to the value inside. This is not to be confused with the square brackets $[\;]$ used in continued fraction notation.
+
+\paragraph{Variable key.}
+\begin{itemize}
+  \item $D$ — A Diophontane number, a fixed, non-square positive integer whose square root we expand.
+  \item $a_0$ — the integer part (floor) of $\sqrt{D}$, starting term of the SCF.
+  \item $a_1,\dots,a_\ell$ — the repeating block of partial quotients.
+  \item $\ell$ — length of the minimal period; its arithmetic reflects properties of $D$.
+  \item Overline $\overline{\cdot}$ — indicates repetition of the enclosed block indefinitely.
+\end{itemize}
+
+\smallskip
+\noindent
+\textbf{Step-by-step algorithm to compute the continued fraction of \( \sqrt{D} \):}
+
+Let \( \alpha_0 = \sqrt{D} \), and set
+\[
+a_0 = \lfloor \sqrt{D} \rfloor.
+\]
+Define recursively for \( k \geq 0 \):
+\begin{align*}
+m_{k+1} &= a_k d_k - m_k \\
+d_{k+1} &= \frac{D - m_{k+1}^2}{d_k} \\
+a_{k+1} &= \left\lfloor \frac{a_0 + m_{k+1}}{d_{k+1}} \right\rfloor \\
+\alpha_{k+1} &= \frac{m_{k+1} + \sqrt{D}}{d_{k+1}}
+\end{align*}
+where the initial values are:
+\[
+m_0 = 0, \quad d_0 = 1, \quad \alpha_0 = \sqrt{D}, \quad a_0 = \lfloor \alpha_0 \rfloor.
+\]
+Each new complete quotient \( \alpha_k \) is of the form \( \frac{m_k + \sqrt{D}}{d_k} \), and the process repeats when the same pair \( (m_k, d_k) \) reappears.
+
+\bigskip
+\noindent
+\textbf{Worked example: Continued fraction of \( \sqrt{17} \)}
+
+We begin:
+\[
+\sqrt{17} \approx 4.123, \quad a_0 = \lfloor \sqrt{17} \rfloor = 4.
+\]
+
+\begin{itemize}
+  \item Step 1:
+  \[
+  m_1 = 4, \quad d_1 = \frac{17 - 4^2}{1} = 1, \quad a_1 = \left\lfloor \frac{4 + 4}{1} \right\rfloor = 8
+  \]
+  Continued fraction so far: \( [4;\,8] \)
+
+  \item Step 2:
+  \[
+  m_2 = 8 \cdot 1 - 4 = 4, \quad d_2 = \frac{17 - 4^2}{1} = 1, \quad a_2 = \left\lfloor \frac{4 + 4}{1} \right\rfloor = 8
+  \]
+  The pair \( (m_2, d_2) = (4, 1) \) has reappeared.
+
+  \item So the continued fraction is:
+  \[
+  \sqrt{17} = [4;\, \overline{8}]
+  \]
+  with period length 1.
+\end{itemize}
+\smallskip
+\noindent
+In other words
+\[
+\sqrt{17} = [4;\, \overline{8}] = 4 + \cfrac{1}{8 + \cfrac{1}{8 + \cfrac{1}{8 + \cfrac{1}{\dots}}}}
+\]
+
+\paragraph{Workable examples.}
+\begin{itemize}
+  \item \textbf{Example A (the headline case $\sqrt{23}$).} Compute $a_0=\lfloor \sqrt{23}\rfloor=4$. The cycle that follows is
+  $\sqrt{23}=[4;\overline{1,3,1,8}]$ with period $\ell=4$. Check: the convergents $4,\; \dfrac{5}{1},\;\dfrac{19}{4},\;\dfrac{24}{5},\;\dfrac{211}{44},\dots$ successively approximate $\sqrt{23}$.
+  \item \textbf{Example B (contrast with $\sqrt{14}$).} Here $a_0=\lfloor\sqrt{14}\rfloor=3$ and
+  $\sqrt{14}=[3;\overline{1,2,1,6}]$ (again $\ell=4$). Compare the length and symmetry of the period with the $\sqrt{23}$ case to begin noticing patterns.
+\end{itemize}
+
+\smallskip
+\noindent
+\textbf{What is a convergent?}
+
+A \emph{convergent} is the rational approximation you get by truncating a continued fraction at a certain depth \( k \). If
+\[
+\sqrt{D} = [a_0;\, a_1, a_2, a_3, \dots],
+\]
+then the \( k \)-th convergent is:
+\[
+\frac{p_k}{q_k} = [a_0;\, a_1, a_2, \dots, a_k],
+\]
+i.e., the continued fraction stopped after the \( k \)-th term.
+
+\smallskip
+\textbf{Naive method:} You can compute \( \frac{p_k}{q_k} \) by evaluating the nested fraction directly from the beginning:
+\[
+[a_0;\, a_1, \dots, a_k] = a_0 + \cfrac{1}{a_1 + \cfrac{1}{\ddots + \cfrac{1}{a_k}}}
+\]
+
+\smallskip
+\textbf{Shortcut (recurrence method):} Rather than recompute from scratch every time, we use a recursive formula:
+\[
+\begin{aligned}
+p_{-1} &= 1,\quad p_0 = a_0, \quad p_k = a_k p_{k-1} + p_{k-2}, \\
+q_{-1} &= 0,\quad q_0 = 1, \quad q_k = a_k q_{k-1} + q_{k-2}
+\end{aligned}
+\]
+
+This way, we only need to know the two previous convergents.
+
+\bigskip
+\noindent
+\textbf{Example: Compute the 6th convergent of \( \sqrt{14} \)}
+
+We have:
+\[
+\sqrt{14} = [3;\, \overline{1,2,1,6}]
+\]
+So the continued fraction terms are:
+\[
+a_0 = 3,\quad a_1 = 1,\quad a_2 = 2,\quad a_3 = 1,\quad a_4 = 6,\quad a_5 = 1,\quad a_6 = 2,\dots
+\]
+
+We compute using the recurrence:
+
+\[
+\begin{aligned}
+p_{-1} &= 1,\quad &q_{-1} &= 0 \\
+p_0 &= 3,\quad &q_0 &= 1 \\
+p_1 &= 1 \cdot 3 + 1 = 4,\quad &q_1 &= 1 \cdot 1 + 0 = 1 \\
+p_2 &= 2 \cdot 4 + 3 = 11,\quad &q_2 &= 2 \cdot 1 + 1 = 3 \\
+p_3 &= 1 \cdot 11 + 4 = 15,\quad &q_3 &= 1 \cdot 3 + 1 = 4 \\
+p_4 &= 6 \cdot 15 + 11 = 101,\quad &q_4 &= 6 \cdot 4 + 3 = 27 \\
+p_5 &= 1 \cdot 101 + 15 = 116,\quad &q_5 &= 1 \cdot 27 + 4 = 31 \\
+p_6 &= 2 \cdot 116 + 101 = 333,\quad &q_6 &= 2 \cdot 31 + 27 = 89
+\end{aligned}
+\]
+
+So the 6th convergent is:
+\[
+\frac{p_6}{q_6} = \frac{333}{89} \approx 3.7416 \quad \text{(very close to } \sqrt{14} \approx 3.7417\text{)}
+\]
+
+\smallskip
+\noindent
+\textbf{How continued fractions solve Pell’s equation}
+
+Let \( \sqrt{D} = [a_0;\, \overline{a_1,\dots,a_\ell}] \). Let \( \frac{p_k}{q_k} \) be the $k$-th convergent.
+
+\begin{itemize}
+  \item If the period length \( \ell \) is even, then \( (x, y) = (p_\ell, q_\ell) \) is the minimal solution to
+  \[
+  x^2 - D y^2 = 1.
+  \]
+  \item If the period length \( \ell \) is odd, then \( (x, y) = (p_{2\ell}, q_{2\ell}) \) gives the minimal solution.
+\end{itemize}
+
+\textbf{Example:} \( \sqrt{17} = [4;\, \overline{8}] \) has period length \( \ell = 1 \) (odd), so we compute two full periods. The second convergent is
+\[
+\frac{33}{8}, \quad \text{and } 33^2 - 17 \cdot 8^2 = 1089 - 1088 = 1.
+\]
+So \( (x, y) = (33, 8) \) solves the Pell equation.
+
+\end{document}
