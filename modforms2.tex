@@ -1,0 +1,154 @@
+\documentclass[11pt]{article}
+\usepackage{fontspec}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep,topsep=0pt}
+\usepackage{hyperref}
+
+\title{Möbius Transformations and the Modular Action}
+\author{Prepared for an introduction to modular symmetries}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part 1: Möbius Transformations on the Real Line}
+
+\paragraph{Historical vignette.}
+Möbius transformations date back to August Ferdinand Möbius (1827), who studied the maps of the form
+\[
+x \;\longmapsto\; \frac{a\,x + b}{c\,x + d}
+\]
+and observed their importance in projective geometry.  They generalize familiar moves like translations, inversions, and reflections.
+
+\paragraph{Notation and variables.}
+\begin{itemize}
+  \item \(x\): a point on the real line \(\mathbb{R}\).
+  \item \(a,b,c,d\in\mathbb{R}\): real parameters, with \(ad - bc\neq 0\) to ensure invertibility.
+  \item We write the transformation as
+    \[
+      M(x) = \frac{a\,x + b}{c\,x + d}\,.
+    \]
+\end{itemize}
+
+\paragraph{Step‐by‐step algorithm on \(\mathbb{R}\).}
+Given \(x\in\mathbb{R}\) and parameters \((a,b,c,d)\):
+\begin{enumerate}
+  \item Compute the numerator \(N = a\,x + b\).
+  \item Compute the denominator \(D = c\,x + d\).
+  \item Form the quotient \(M(x) = N/D\).
+\end{enumerate}
+
+\paragraph{Matrix viewpoint.}
+Observe that
+\[
+\begin{pmatrix}a & b\\ c & d\end{pmatrix}
+\quad\longleftrightarrow\quad
+x \longmapsto \frac{a\,x + b}{c\,x + d}.
+\]
+The determinant \(\det = ad - bc\neq0\) ensures this is an invertible map.
+
+\paragraph{Worked example.}
+Let
+\[
+M(x) = \frac{2x - 3}{x + 1}, 
+\quad\text{matrix }
+\begin{pmatrix}2 & -3\\[6pt]1 & 1\end{pmatrix}.
+\]
+Compute \(M(4)\):
+\[
+N = 2\cdot4 - 3 = 5,\quad D = 1\cdot4 + 1 = 5,
+\quad M(4) = \frac{5}{5} = 1.
+\]
+Verify invertibility by checking \(\det = 2\cdot1 - (-3)\cdot1 = 5\neq0\).
+
+\paragraph{Practice problems.}
+\begin{enumerate}
+  \item Compute \(M(x)=\frac{3x+2}{2x-1}\) at \(x=1\) and \(x=2\).  
+  \item Verify invertibility of \(N(x)=\tfrac{4x-5}{x+2}\) by computing its determinant and then finding \(N^{-1}(y)\).
+\end{enumerate}
+
+\newpage
+\section*{Part 2: \(\mathrm{SL}_2(\mathbb{Z})\) Action on the Upper Half‐Plane}
+
+\paragraph{Historical vignette.}
+The group \(\mathrm{SL}_2(\mathbb{Z})\) — 2×2 integer matrices of determinant 1 — was first studied in earnest by Felix Klein and Henri Poincaré in the late 19th century in connection with tessellations of the hyperbolic plane.
+
+\paragraph{Definitions and notation.}
+\begin{itemize}
+  \item \(\displaystyle \mathrm{SL}_2(\mathbb{Z})
+    = \Bigl\{\begin{pmatrix}a&b\\c&d\end{pmatrix}\!
+      \Bigm|\;a,b,c,d\in\mathbb{Z},\;ad-bc=1\Bigr\}.\)
+  \item Upper half‐plane:
+    \(\displaystyle \mathbb{H} = \{\,\tau\in\mathbb{C}\mid \Im(\tau)>0\}.\)
+  \item Action:
+    \[
+      \gamma = \begin{pmatrix}a & b\\ c & d\end{pmatrix}
+      \;:\;\tau \;\longmapsto\;
+      \gamma\cdot\tau \;=\;
+      \frac{a\,\tau + b}{c\,\tau + d}.
+    \]
+\end{itemize}
+
+\paragraph{Key generators.}
+\[
+T = \begin{pmatrix}1&1\\0&1\end{pmatrix},\quad
+S = \begin{pmatrix}0&-1\\1&0\end{pmatrix},
+\]
+with relations \(S^2 = (ST)^3 = -I\).
+
+\paragraph{Worked example.}
+Let \(\tau = i\).  Compute
+\[
+T\cdot i = i + 1,\quad
+S\cdot i = -\tfrac1{i} = i.
+\]
+Now \(\displaystyle ST\cdot i = S(i+1)= -\tfrac1{i+1} = \frac{i-1}{2}\).  Check \(\Im((i-1)/2)>0\).
+
+\paragraph{Practice problems.}
+\begin{enumerate}
+  \item Compute \(\displaystyle T^3\cdot i\) and \(S\,T^2\,S\cdot i\).
+  \item For \(\gamma=\begin{pmatrix}2&1\\1&1\end{pmatrix}\), evaluate \(\gamma\cdot(2i)\) and verify the result lies in \(\mathbb{H}\).
+\end{enumerate}
+
+\newpage
+\section*{Part 3: Continued Fractions Encoding \(\mathrm{SL}_2(\mathbb{Z})\) Action}
+
+\paragraph{Bridge remark.}
+Each simple continued fraction step
+\([a_0;\,a_1,\dots,a_k]\)
+corresponds to a product of the generators \(T\) and \(S\):
+\[
+[a_0] \;\longleftrightarrow\; T^{a_0}, 
+\quad
+[a_0;a_1] \;\longleftrightarrow\; T^{a_0}S T^{a_1}, 
+\quad\text{etc.}
+\]
+
+\paragraph{Notation.}
+\[
+[a_0;\,a_1,\ldots,a_k]
+\;\longmapsto\;
+\underbrace{T^{a_0}S T^{a_1}S\cdots S T^{a_k}}_{\in\mathrm{SL}_2(\mathbb{Z})}.
+\]
+
+\paragraph{Worked example.}
+\[
+\sqrt{2}=[1;\overline{2}]
+\;\longmapsto\;
+T^1\,S\,T^2\,S
+=\begin{pmatrix}1&1\\0&1\end{pmatrix}
+\begin{pmatrix}0&-1\\1&0\end{pmatrix}
+\begin{pmatrix}1&2\\0&1\end{pmatrix}
+\begin{pmatrix}0&-1\\1&0\end{pmatrix}.
+\]
+Multiplying out gives a matrix whose fixed point is \(\frac{1+\sqrt2}2\).
+
+\paragraph{Practice problems.}
+\begin{enumerate}
+  \item Write the continued fraction \([2;1,3]\) as a product of \(T\) and \(S\).
+  \item For \(\alpha = [3;\overline{1,4}]\), form the corresponding matrix and verify it fixes \(\alpha\).
+\end{enumerate}
+
+\end{document}
