@@ -1,0 +1,191 @@
+\documentclass[11pt]{article}
+\usepackage{fontspec}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep,topsep=2pt}
+\setlist[enumerate]{noitemsep,topsep=2pt}
+\usepackage{hyperref}
+\usepackage{tikz}
+
+\title{Lesson A2: Power Series in One Page (Taylor \& Binomial in Action)}
+\author{Expanded, Step-by-Step Version for a Gifted Young Learner}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{What we will build}
+Tiny toolkits to approximate functions with \emph{polynomials}:
+\begin{itemize}
+  \item Memorize the core series (Maclaurin):
+  \[
+  e^x=\sum_{n\ge0}\frac{x^n}{n!},\quad
+  \sin x=\sum_{n\ge0}\frac{(-1)^n x^{2n+1}}{(2n+1)!},\quad
+  \cos x=\sum_{n\ge0}\frac{(-1)^n x^{2n}}{(2n)!}.
+  \]
+  \item Use the \textbf{generalized binomial series} for \(|x|<1\):
+  \[
+  (1+x)^{\alpha}=\sum_{n\ge0}\binom{\alpha}{n}x^n,\qquad
+  \binom{\alpha}{n}=\frac{\alpha(\alpha-1)\cdots(\alpha-n+1)}{n!}.
+  \]
+  \item Build fast approximations with a \emph{truncated polynomial} \(T_N(x)\) and estimate the error by the size of the \emph{next term}.
+\end{itemize}
+
+\paragraph{Audience note.} Exact values at special angles are great; otherwise, short decimal work is fine. Everything stays computational and visual.
+
+\bigskip\hrule\bigskip
+
+\section*{Vocabulary \& Symbols}
+\begin{itemize}
+  \item \(\displaystyle T_N(x)=\sum_{k=0}^N a_k x^k\): \(N\)-th Taylor polynomial at \(0\) (Maclaurin).
+  \item \(\displaystyle R_{N+1}(x)=f(x)-T_N(x)\): \emph{remainder} (error). For alternating, decreasing term sizes: \(|R_{N+1}(x)|\lesssim\) first omitted term.
+  \item \(\displaystyle n! = n(n-1)\cdots 1\): factorial.
+  \item \emph{Radius of convergence} (intuitive): how far the power series meaningfully “reaches.” We use it qualitatively here.
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section*{Core Idea 1: Three series you can use on sight}
+\[
+\boxed{
+\begin{aligned}
+e^x&=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\frac{x^4}{4!}+\cdots &&(\text{all }x)\\[4pt]
+\sin x&=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+\cdots &&(\text{all }x)\\[4pt]
+\cos x&=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+\cdots &&(\text{all }x)
+\end{aligned}}
+\]
+\emph{Why} the \(\sin\)/\(\cos\) signs? Use Euler: \(e^{ix}=\cos x+i\sin x\) and equate real/imaginary parts.
+
+\paragraph{Mini-check.} For small \(x\), \(\sin x\approx x\), \(\cos x\approx 1-\tfrac{x^2}{2}\), \(e^x\approx 1+x\). These pass the “tiny \(x\)” sniff test.
+
+\bigskip\hrule\bigskip
+
+\section*{Core Idea 2: Generalized binomial for tiny changes}
+For \(|x|<1\),
+\[
+(1+x)^\alpha
+=1+\alpha x+\frac{\alpha(\alpha-1)}{2!}x^2+\frac{\alpha(\alpha-1)(\alpha-2)}{3!}x^3+\cdots
+\]
+Special favorites:
+\[
+(1+x)^{1/2}=1+\tfrac12x-\tfrac18x^2+\tfrac1{16}x^3-\tfrac{5}{128}x^4+\cdots
+\]
+\[
+(1+x)^{-1/2}=1-\tfrac12x+\tfrac{3}{8}x^2-\tfrac{5}{16}x^3+\cdots
+\]
+\emph{Trick:} To approximate \(a^\alpha\), write \(a=A(1+\delta)\) with \(A\) friendly and \(|\delta|\ll1\), so
+\(a^\alpha=A^\alpha(1+\delta)^\alpha\).
+
+\bigskip\hrule\bigskip
+
+\section*{Algorithm 1: Build a quick Taylor approximation}
+\textbf{Input:} function \(f\) (one of \(e^x,\sin,\cos\)), target \(x\), degree \(N\). \\
+\textbf{Output:} \(T_N(x)\) and an error estimate.
+
+\begin{enumerate}[label=\textbf{Step \arabic*.}]
+  \item Pick degree \(N\) (often \(3,4,\) or \(5\) is enough for \(|x|\le 0.5\)).
+  \item Write the first \(N\!+\!1\) terms from the boxed series and plug \(x\).
+  \item \textbf{Error estimate:} use the absolute value of the next omitted term. For alternating series (\(\sin,\cos\) at small \(x\)), this is a reliable bound.
+\end{enumerate}
+
+\paragraph{Worked examples.}
+\begin{enumerate}[label=\textbf{Ex.\ \arabic*.}]
+  \item \(e^{0.1}\) with \(N=4\):
+  \[
+  T_4=1+0.1+\frac{0.1^2}{2}+\frac{0.1^3}{6}+\frac{0.1^4}{24}=1.1051708333\ldots
+  \]
+  True \(e^{0.1}=1.1051709180\ldots\) Error \(\approx 8.47\times10^{-8}\). Next term \(0.1^5/120\approx 8.33\times10^{-8}\).
+  \item \(\sin(0.5)\) with \(N=5\):
+  \[
+  T_5=0.5-\frac{0.5^3}{6}+\frac{0.5^5}{120}=0.4794270833\ldots
+  \]
+  True \(\sin(0.5)=0.4794255386\ldots\) Error \(\approx1.54\times10^{-6}\). Next term \(0.5^7/7!\approx1.55\times10^{-6}\).
+  \item \(\cos(0.5)\) with \(N=4\):
+  \[
+  T_4=1-\frac{0.5^2}{2}+\frac{0.5^4}{24}=0.8776041666\ldots
+  \]
+  True \(\cos(0.5)=0.8775825619\ldots\) Error \(\approx2.16\times10^{-5}\). Next term \(0.5^6/6!\approx2.17\times10^{-5}\).
+\end{enumerate}
+
+\bigskip\hrule\bigskip
+
+\section*{Algorithm 2: Binomial hacks for \(\sqrt{\ \ }\) and friends}
+\textbf{Goal:} Approximate \((1+x)^\alpha\) for small \(|x|\).
+
+\begin{enumerate}[label=\textbf{Step \arabic*.}]
+  \item Identify \(x\) so that your number looks like \(1+x\).
+  \item Use 3--5 terms of the binomial series for \(\alpha\) (\(\tfrac12\), \(-\tfrac12\), etc.).
+  \item Multiply by any outer factor if you wrote \(a=A(1+x)\).
+  \item Use the next term’s size as an error estimate.
+\end{enumerate}
+
+\paragraph{Worked examples.}
+\begin{enumerate}[label=\textbf{Ex.\ \arabic*.},resume]
+  \item \(\sqrt{1.04}=(1+0.04)^{1/2}\). Using terms through \(x^4\):
+  \[
+  1+\tfrac12(0.04)-\tfrac18(0.04)^2+\tfrac1{16}(0.04)^3-\tfrac{5}{128}(0.04)^4=1.0198039000\ldots
+  \]
+  True \(\sqrt{1.04}=1.0198039027\ldots\) Error \(\approx 2.7\times10^{-9}\) (tiny because \(x=0.04\) is small).
+  \item \(\dfrac{1}{\sqrt{1.1}}=(1+0.1)^{-1/2}\) with terms through \(x^3\):
+  \[
+  1-\tfrac12(0.1)+\tfrac{3}{8}(0.1)^2-\tfrac{5}{16}(0.1)^3=0.9534375.
+  \]
+  True \(0.9534625892\ldots\) Error \(\approx 2.51\times10^{-5}\). Next term size \(\approx 1.72\times10^{-5}\).
+\end{enumerate}
+
+\bigskip\hrule\bigskip
+
+\section*{Mini-Labs (paper or computer)}
+\begin{itemize}
+  \item \textbf{Overlay plots.} On \([-0.5,0.5]\), draw \(y=\sin x\) and its cubic; draw \(y=\cos x\) and its quartic.
+  \item \textbf{Convergence feel.} Fix \(x=0.3\). Compute \(T_1,T_3,T_5\) for \(\sin x\); watch the error shrink like the next term.
+  \item \textbf{Radius intuition.} Try \((1+x)^{1/2}\) at \(x=0.9\) vs \(x=1.1\). See why \(|x|<1\) matters.
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section*{Practice (do, then check)}
+\begin{itemize}
+  \item \textbf{P1.} \(e^{-0.2}\) with terms through \(x^4\).
+  \item \textbf{P2.} \(\sin(18^\circ)\) using radians \(x=\pi/10\) with terms through \(x^5\).
+  \item \textbf{P3.} \(\cos(15^\circ)\) with terms through \(x^4\) (use \(x=\pi/12\)).
+  \item \textbf{P4.} Expand \((1+x)^{-1/2}\) to \(x^3\). Evaluate at \(x=0.1\) and compare to a calculator.
+  \item \textbf{P5.} Expand \((1+x)^{1/3}\) to \(x^3\). Evaluate at \(x=-0.06\) to approximate \(\sqrt[3]{0.94}\).
+  \item \textbf{P6.} (Geometric series warm-up) Compute \(1+0.2+0.2^2+\cdots+0.2^5\) and compare to \(\frac{1-0.2^{6}}{1-0.2}\).
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section*{Capstone A2: Series Approximation Bake-off}
+\begin{enumerate}
+  \item Approximate \(\sin(0.3)\), \(e^{0.5}\), and \((1.02)^{1/2}\) using 3, 4, and 5 terms. For each: record the first omitted term’s size and compare to the true error.
+  \item Bonus: \(\cos(15^\circ)\) with quartic. True value \(=\frac{\sqrt{6}+\sqrt{2}}{4}\approx 0.9659258263\). How close are you?
+\end{enumerate}
+
+\bigskip\hrule\bigskip
+
+\section*{Bridge to Lesson A3 (First Look at Fourier)}
+Polynomials approximate \emph{local} behavior (near a point). Fourier series approximate \emph{periodic} behavior:
+\[
+f(\theta)=a_0+\sum_{n\ge1}\big(a_n\cos n\theta+b_n\sin n\theta\big).
+\]
+Think “Taylor near \(0\)” vs “Fourier around the circle.” In A3 we’ll sample a periodic signal and build its first harmonics.
+
+\bigskip\hrule\bigskip
+
+\section*{Selected Answers (numerical)}
+\begin{itemize}
+  \item \textbf{From examples:} \(e^{0.1}\approx 1.1051708333\) (true \(1.1051709180\)); \(\sin(0.5)\approx 0.4794270833\) (true \(0.4794255386\)); \(\cos(0.5)\approx 0.8776041667\) (true \(0.8775825619\)); \(\sqrt{1.04}\approx 1.0198039000\) (true \(1.0198039027\)); \(1/\sqrt{1.1}\approx 0.9534375\) (true \(0.9534625892\)).
+  \item \textbf{P3 hint-check:} With \(x=\pi/12\approx 0.261799\), \(1-\tfrac{x^2}{2}+\tfrac{x^4}{24}\approx 0.9659262729\), true \(0.9659258263\). Error \(\approx 4.47\times10^{-7}\).
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section*{Challenge (optional)}
+\begin{itemize}
+  \item Differentiate the geometric series \(\sum_{n\ge0}x^n=\frac{1}{1-x}\) (for \(|x|<1\)) to get a series for \(\frac{1}{(1-x)^2}\). Integrate to get \(\ln(1+x)\) (with care about constants).
+  \item Show that for \(|x|\le 0.5\), the alternating series error for \(\sin x\) after the \(x^5/5!\) term is at most \(x^7/7!\).
+\end{itemize}
+
+\end{document}

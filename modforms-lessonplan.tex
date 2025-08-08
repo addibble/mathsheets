@@ -1,0 +1,277 @@
+\documentclass[11pt]{article}
+\usepackage{fontspec}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz}
+
+\setlist[itemize]{noitemsep,topsep=2pt}
+\setlist[enumerate]{noitemsep,topsep=2pt}
+
+\title{Roadmap: From Continued Fractions to Modular Forms and Elliptic Curves}
+\author{Expanded Curriculum with Bridges, Applications, and Fluency Plan}
+\date{}
+
+\begin{document}
+\maketitle
+
+\paragraph{Audience and tone.}
+For a mathematically gifted 9-year-old, comfortable with arithmetic, introductory algebra, and eager to explore. Lessons remain visual, computational, and playful, with proofs postponed unless short and accessible. 
+
+\paragraph{Materials.}
+Graph paper, straightedge, compass, colored pencils; calculator or plotting app capable of parametric plots and discrete sampling.
+
+\bigskip
+\hrule
+\bigskip
+
+\section*{Unit A --- Tiny Complex/Calculus Boosters}
+\textbf{Goal:} Comfort with rotations, complex numbers, series, and Fourier intuition; prepare for Möbius maps and $q$-series.
+
+\subsection*{Lesson A1: Complex Numbers and Rotations}
+\textbf{What we will build.} Interpret $x+iy$ in polar form $re^{i\theta}$, and use multiplication by $e^{i\theta}$ to rotate points in $\mathbb{C}$. Learn to rotate about arbitrary centers $a$ via $a+e^{i\theta}(z-a)$.
+\begin{itemize}
+\item \textbf{Activities:} Convert between rectangular and polar forms; compute $e^{i\pi/3}$ and $e^{i\pi/4}$; rotate $(2,-1)$ by $45^\circ$ about origin and $(1,2)$.
+\item \textbf{Visual/Computer:} Plot $z(\theta)=e^{i\theta}(2-i)$ for $\theta\in[0,2\pi]$ and see the circle.
+\end{itemize}
+
+\subsection*{Lesson A2: Power Series in One Page}
+\textbf{What we will build.} Approximate $e^x,\sin x,\cos x$ using Taylor series; apply Newton’s binomial theorem $(1+x)^\alpha=\sum\binom{\alpha}{n}x^n$.
+\begin{itemize}
+\item \textbf{Activities:} Expand $(1+x)^{1/2}$ up to $x^4$; approximate $\sqrt{1.04}$ and compare.
+\item \textbf{Visual/Computer:} Overlay $y=\sin x$ with its cubic Taylor polynomial near $0$.
+\end{itemize}
+
+\subsection*{Lesson A3: First Look at Fourier}
+\textbf{What we will build.} Express periodic functions as $\displaystyle f(\theta)=a_0+\sum_{n\ge1}(a_n\cos n\theta+b_n\sin n\theta)$; connect to beats identity.
+\begin{itemize}
+\item \textbf{Activities:} Sample an 8-point square wave; identify odd harmonics.
+\item \textbf{Visual/Computer:} Plot $S_1,S_3,S_5$ partial sums; observe Gibbs overshoot.
+\end{itemize}
+
+\subsection*{Lesson A4 (Bridge): Matrices \& Simple Möbius Maps}
+\textbf{What we will build.} Read $2\times 2$ integer matrices, determinant $ad-bc$; compose simple maps $x\mapsto\frac{ax+b}{cx+d}$.
+\begin{itemize}
+\item \textbf{Activities:} Multiply $M_1=\begin{psmallmatrix}1&1\\0&1\end{psmallmatrix}$ and $M_2=\begin{psmallmatrix}0&-1\\1&0\end{psmallmatrix}$; interpret $T,S$.
+\item \textbf{Visual/Computer:} Apply $S,T$ to points on real line; plot the motion.
+\end{itemize}
+
+\paragraph{Capstone A:}
+\begin{enumerate}
+\item Rotate multiple complex points about origin and arbitrary centers; verify distances preserved.
+\item Approximate $\sin(0.3)$, $e^{0.5}$, $(1.02)^{1/2}$ via Taylor/binomial series; estimate remainder.
+\item Sample and Fourier-approximate a simple wave; compare to original.
+\item Given simple Möbius maps, express as products in $S,T$; apply to a set of points.
+\end{enumerate}
+
+\bigskip
+\hrule
+\bigskip
+
+\section*{Unit B --- Continued Fractions to \texorpdfstring{$\mathrm{SL}_2(\mathbb{Z})$}{SL2(Z)}}
+\subsection*{Lesson B1: CF as Matrix Products}
+\textbf{What we will build.} Compute convergents of $\alpha=[a_0;a_1,a_2,\dots]$ via $M(a)=\begin{psmallmatrix}a&1\\1&0\end{psmallmatrix}$; product $M(a_0)\cdots M(a_k)=\begin{psmallmatrix}p_k&p_{k-1}\\ q_k&q_{k-1}\end{psmallmatrix}$.
+\begin{itemize}
+\item \textbf{Activities:} Compute $\sqrt{14}$ convergents by matrix and recurrence.
+\item \textbf{Visual:} Tree diagram of rationals with CF branches.
+\end{itemize}
+
+\subsection*{Lesson B2: Möbius Transformations and Fundamental Domain}
+\textbf{What we will build.} Action $\tau\mapsto\frac{a\tau+b}{c\tau+d}$ on $\mathbb{H}$; reduce to $\mathcal{F}=\{|\Re\tau|\le\tfrac12,|\tau|\ge1\}$ using $S,T$.
+\begin{itemize}
+\item \textbf{Activities:} Reduce $\tau=3+2i$ to $\mathcal{F}$; record $S,T$ word.
+\item \textbf{Visual:} Modular tessellation; orbit of a point.
+\end{itemize}
+
+\subsection*{Lesson B3: Farey Sequences and Ford Circles}
+\textbf{What we will build.} Best approximations; mediant $\frac{p+r}{q+s}$ between $\frac{p}{q}$ and $\frac{r}{s}$; tangency $ps-qr=1$.
+\begin{itemize}
+\item \textbf{Activities:} Draw Ford circles with $q\le5$; identify neighbors of $2/5$.
+\end{itemize}
+
+\subsection*{Lesson B4: Quadratic Irrationals as Closed Geodesics}
+\textbf{What we will build.} Connect periodic CFs of $\sqrt{D}$ to closed loops on modular surface.
+\begin{itemize}
+\item \textbf{Activities:} Use $\sqrt{14}$ period to trace loop on tessellation.
+\end{itemize}
+
+\subsection*{Lesson B5: CFs in the Wild}
+\textbf{What we will build.} Apply CFs to best approximations; explain $355/113$ for $\pi$.
+\begin{itemize}
+\item \textbf{Activities:} Approximate $e$ and $\sqrt{2}$ to within $10^{-4}$ by CF.
+\end{itemize}
+
+\subsection*{Lesson B6: Nested Radicals \& Quadratic Surprises}
+\textbf{What we will build.} Evaluate $\sqrt{k+\sqrt{k+\cdots}}$ as quadratic fixed points; trigonometric connection $\sqrt{2+\sqrt{2+\cdots+\sqrt{2}}}=2\cos(\pi/2^{n+1})$; Viète’s product for $\frac{2}{\pi}$.
+\begin{itemize}
+\item \textbf{Activities:} Solve $\sqrt{6+\sqrt{6+\cdots}}$; compare to CF expansion.
+\item \textbf{Visual:} Plot partial approximations.
+\end{itemize}
+
+\subsection*{Bridge to C: Fractions Modulo $m$}
+\textbf{What we will build.} Understand $\frac{a}{b}\bmod m$ when $\gcd(b,m)=1$; invert small denominators.
+
+\paragraph{Capstone B:}
+\begin{enumerate}
+\item Reduce several $\tau$ to $\mathcal{F}$, recording $S,T$ words.
+\item Draw Ford circles up to $q=7$; verify mediant property visually.
+\item Match value of a nested radical to a quadratic irrational via CF expansion.
+\end{enumerate}
+
+\bigskip
+\hrule
+\bigskip
+
+\section*{Unit C --- Congruences and Quadratic Residues}
+\subsection*{Lesson C1: Modular Arithmetic and CRT}
+\textbf{What we will build.} Compute inverses mod $m$; solve $x\equiv a\pmod{m_1}$, $x\equiv b\pmod{m_2}$.
+\begin{itemize}
+\item \textbf{Activities:} Invert $7\bmod 26$; solve $x\equiv3\pmod5$, $x\equiv2\pmod7$.
+\item \textbf{Visual:} Wrap-around number lines.
+\end{itemize}
+
+\subsection*{Lesson C2: Quadratic Residues and Legendre Symbol}
+\textbf{What we will build.} List squares mod $p$; compute $\left(\frac{a}{p}\right)$ via Euler’s criterion.
+\begin{itemize}
+\item \textbf{Activities:} Table squares mod 7, 11; evaluate $\left(\frac{2}{7}\right)$.
+\item \textbf{Visual:} Color quadratic residues on $p\times p$ grid.
+\end{itemize}
+
+\subsection*{Lesson C3: A Friendly Theta Function}
+\textbf{What we will build.} $\theta(q)=\sum_{n\in\mathbb{Z}}q^{n^2}$; $\theta(q)^2$ counts $x^2+y^2$.
+\begin{itemize}
+\item \textbf{Activities:} List coefficients to $q^9$; count integer solutions to $x^2+y^2=m$.
+\item \textbf{Visual:} Lattice points on circles.
+\end{itemize}
+
+\subsection*{Lesson C4: Fast Modular Exponentiation and Miller--Rabin}
+\textbf{What we will build.} Compute $a^n\bmod m$ by square-and-multiply; run Miller--Rabin primality test.
+\begin{itemize}
+\item \textbf{Activities:} $3^{100}\bmod 13$; test $n=561$ with $a=2,3$.
+\end{itemize}
+
+\subsection*{Lesson C5: Square Roots mod $p$ (Tonelli--Shanks)}
+\textbf{What we will build.} Solve $x^2\equiv a\pmod{p}$ for odd prime $p$.
+\begin{itemize}
+\item \textbf{Activities:} $\sqrt{10}\bmod 13$; verify by squaring.
+\end{itemize}
+
+\paragraph{Capstone C:}
+\begin{enumerate}
+\item Solve 3 CRT problems quickly.
+\item Invert several $a\bmod m$ and check with multiplication.
+\item Run Miller--Rabin on a 5-digit composite.
+\item Find $\sqrt{a}\bmod p$ for two cases and verify.
+\end{enumerate}
+
+\bigskip
+\hrule
+\bigskip
+
+\section*{Unit D --- Elliptic Curves Two Ways}
+\subsection*{Pre-Bridge: From Grid to Donut}
+\textbf{What we will build.} Turn $\mathbb{R}^2/\mathbb{Z}^2$ into a paper torus; generalize to $\mathbb{C}/\Lambda$.
+
+\subsection*{Lesson D1: Lattices and Complex Tori}
+\textbf{What we will build.} Lattice $\Lambda=\mathbb{Z}+\mathbb{Z}\tau$; fundamental parallelograms.
+\begin{itemize}
+\item \textbf{Activities:} Draw $\tau=i$ and $\tau=e^{i\pi/3}$ lattices.
+\end{itemize}
+
+\subsection*{Lesson D2: Tori to Weierstrass Cubics (Peek)}
+\textbf{What we will build.} Statement $\mathbb{C}/\Lambda\leftrightarrow y^2=4x^3-g_2x-g_3$.
+
+\subsection*{Lesson D3: Group Law on a Cubic}
+\textbf{What we will build.} Chord-tangent addition; reflection in $x$-axis.
+\begin{itemize}
+\item \textbf{Activities:} On $y^2=x^3-x$, compute $(0,0)+(1,0)$.
+\end{itemize}
+
+\subsection*{Lesson D4: Counting Points mod $p$; $a_p$}
+\textbf{What we will build.} Count $\#E(\mathbb{F}_p)$; define $a_p=p+1-\#E(\mathbb{F}_p)$.
+\begin{itemize}
+\item \textbf{Activities:} Count for $p=5,7,11$; make table.
+\end{itemize}
+
+\subsection*{Lesson D5: Scalar Multiplication (Double-and-Add)}
+\textbf{What we will build.} Compute $nP$ efficiently from binary $n$.
+
+\subsection*{Lesson D6: Toy ECC}
+\textbf{What we will build.} Simulate ECDH over $\mathbb{F}_p$ on a toy curve.
+\begin{itemize}
+\item \textbf{Activities:} Pick base point $G$; exchange public keys; compute shared secret.
+\end{itemize}
+
+\paragraph{Capstone D:}
+\begin{enumerate}
+\item Add, double, and scalar multiply points on a curve.
+\item Count $\#E(\mathbb{F}_p)$ for $p\le 19$; plot $a_p$.
+\item Run a toy ECC key exchange end-to-end.
+\end{enumerate}
+
+\bigskip
+\hrule
+\bigskip
+
+\section*{Unit E --- Modular Forms and the Bridge}
+\subsection*{Pre-Bridge Recap: Why $q$-series? Why $S,T$?}
+\textbf{What we will build.} Periodicity $\tau\mapsto\tau+1$ $\Rightarrow$ Fourier in $q=e^{2\pi i\tau}$; $\tau\mapsto-1/\tau$ symmetry in $\mathbb{H}$.
+
+\subsection*{Lesson E1: What is a Modular Form?}
+\textbf{What we will build.} $f:\mathbb{H}\to\mathbb{C}$ with $f\!\left(\frac{a\tau+b}{c\tau+d}\right)=(c\tau+d)^k f(\tau)$; $q$-expansion.
+
+\subsection*{Lesson E2: Eisenstein Series}
+\textbf{What we will build.} $E_4(\tau)=1+240\sum\sigma_3(n)q^n$, $E_6(\tau)=1-504\sum\sigma_5(n)q^n$.
+\begin{itemize}
+\item \textbf{Activities:} Make divisor-sum tables $n\le 10$; compute coefficients.
+\end{itemize}
+
+\subsection*{Lesson E3: $\Delta$ and $j$-Invariant}
+\textbf{What we will build.} $\Delta=q\prod(1-q^n)^{24}$; $j(\tau)=1728\,\frac{E_4^3}{E_4^3-E_6^2}$.
+
+\subsection*{Lesson E4: Hecke Operators (Taste)}
+\textbf{What we will build.} $(T_p f)(q)=\sum(a_{pn}+p^{k-1}a_{n/p})q^n$.
+
+\subsection*{Lesson E5: Bridge: Elliptic Curves $\leftrightarrow$ Modular Forms}
+\textbf{What we will build.} Modularity theorem: $E/\mathbb{Q}$ matches weight-2 newform with coefficients $a_p$.
+
+\subsection*{Lesson E6: Ramanujan and Chudnovsky $\pi$ Formulas}
+\textbf{What we will build.} Rapidly converging $\pi$ series from modular equations; e.g.,
+\[
+\frac{1}{\pi}=\frac{2\sqrt{2}}{9801}\sum_{n=0}^\infty\frac{(4n)!(1103+26390n)}{(n!)^4 396^{4n}}.
+\]
+
+\paragraph{Capstone E:}
+\begin{enumerate}
+\item Compute $q$-expansion coefficients for $E_4,E_6,\Delta$ to $n=8$.
+\item Match $a_p$ table of a curve to weight-2 modular form.
+\item Compute $\pi$ to 6+ digits with first few terms of Ramanujan’s series.
+\end{enumerate}
+
+\bigskip
+\hrule
+\bigskip
+
+\section*{Unit F (Optional Story): Fermat's Last Theorem Pipeline}
+Fermat $\to$ Frey curve $\to$ Ribet $\to$ Wiles. Map of the territory.
+
+\section*{Fluency Plan}
+\paragraph{Daily skill ladders:}
+\begin{itemize}
+\item \textbf{CF/matrices:} 3 CF expansions to depth 8; 3 matrix products; one $\tau$ to $\mathcal{F}$.
+\item \textbf{Mod arithmetic:} 5 inverses mod $m$; 2 CRT problems; one Tonelli--Shanks.
+\item \textbf{Elliptic:} Add/double 2 points mod $p$; count $\#E(\mathbb{F}_p)$.
+\item \textbf{$q$-series:} Generate coefficients for $E_4,E_6,\Delta$ up to $n=10$.
+\end{itemize}
+
+\section*{Milestones}
+\begin{itemize}
+\item \textbf{End A:} Rotate, expand series, do simple Fourier.
+\item \textbf{End B:} CF mastery, Ford circles, nested radicals.
+\item \textbf{End C:} CRT fluency, Miller--Rabin, Tonelli--Shanks.
+\item \textbf{End D:} ECC simulation, $a_p$ computation.
+\item \textbf{End E:} $q$-expansion fluency, Ramanujan $\pi$ computation, modular form--elliptic curve match.
+\end{itemize}
+
+\end{document}
